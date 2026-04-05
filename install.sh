@@ -12,12 +12,12 @@ conda activate beyond_scale
 # -- Install this library from source
 # - Get the code, put it in afs so its available to all machines and symlink it to home in the local machine
 cd /afs/cs.stanford.edu/u/brando9/
-git clone git@github.com:brando90/beyond-scale-div-coeff.git
-ln -s /afs/cs.stanford.edu/u/brando9/beyond-scale-div-coeff $HOME/beyond-scale-div-coeff
+git clone git@github.com:brando90/beyond-scale-language-data-diversity.git
+ln -s /afs/cs.stanford.edu/u/brando9/beyond-scale-language-data-diversity $HOME/beyond-scale-language-data-diversity
 # - Install the library in editable mode so that changes are reflected immediately in running code
-pip install -e ~/beyond-scale-div-coeff
-# pip uninstall ~/beyond-scale-div-coeff
-cd ~/beyond-scale-div-coeff
+pip install -e ~/beyond-scale-language-data-diversity
+# pip uninstall ~/beyond-scale-language-data-diversity
+cd ~/beyond-scale-language-data-diversity
 
 # -- Test pytorch
 python -c "import torch; print(torch.__version__); print(torch.version.cuda); print((torch.randn(2, 4).cuda() @ torch.randn(4, 1).cuda()))"

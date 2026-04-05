@@ -1,4 +1,4 @@
-# Overview — beyond-scale-div-coeff
+# Overview — beyond-scale-language-data-diversity
 
 Official implementation of the **Task2Vec Diversity Coefficient** — a metric for measuring natural language data diversity. The paper shows LLMs are pre-trained on formally diverse data.
 

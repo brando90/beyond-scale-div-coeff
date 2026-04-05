@@ -1,4 +1,4 @@
-# INDEX.md — beyond-scale-div-coeff
+# INDEX.md — beyond-scale-language-data-diversity
 
 Load only the docs relevant to your current task.
 

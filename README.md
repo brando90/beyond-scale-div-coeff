@@ -15,12 +15,12 @@ This repository also contains code for generating GINC datasets and computing th
 When cloning your main repository in the future, you will need to initialize the submodules as well by using:
 ```bash
 cd ~
-git clone --recurse-submodules git@github.com:brando90/beyond-scale-div-coeff.git
+git clone --recurse-submodules git@github.com:brando90/beyond-scale-language-data-diversity.git
 ```
 If you forget to use --recurse-submodules, you can still initialize the: 
 ```bash
-git clone https://github.com/<user>/beyond-scale-div-coeff.git
-cd ~/beyond-scale-div-coeff
+git clone https://github.com/<user>/beyond-scale-language-data-diversity.git
+cd ~/beyond-scale-language-data-diversity
 git submodule update --init --recursive
 ```
 Note: to push the changes to submodule cd there and do git cmds there.
@@ -38,7 +38,7 @@ Create conda env:
 conda create -n beyond_scale_div_coeff python=3.11 -y
 # conda activatexport HOME=/data/
 conda activate beyond_scale_div_coeff
-pip install -e ~/beyond-scale-div-coeff
+pip install -e ~/beyond-scale-language-data-diversity
 # conda remove --name beyond_scale_diiv_coeff --all
 ```
 
@@ -52,7 +52,7 @@ python3.11 -m venv ~/.virtualenvs/beyond_scale_div_coeff
 source ~/.virtualenvs/beyond_scale_div_coeff/bin/activate
 pip install --upgrade pip
 which python
-pip install -e ~/beyond-scale-div-coeff
+pip install -e ~/beyond-scale-language-data-diversity
 ```
 
 ## Acknowledgements
