@@ -18,6 +18,7 @@ Every full-conference review (ICLR 2024: FQiZ, kREU; ICLR 2025: v5Te, JTBn, N6rW
 | **Vendi Score** | exp(Shannon entropy of eigenvalues of kernel similarity matrix) | O(N² + eigendecomposition) |
 | **N-gram diversity** | Distinct N-grams / Total N-grams for N=1,2,3,4 | Cheap (counting) |
 | **Mean embedding cosine** | Pairwise cosine distance of mean GPT-2 hidden-state embeddings per batch | Cheap (forward pass only) |
+| **SBERT embedding cosine** | Pairwise cosine distance of mean SBERT (all-MiniLM-L6-v2) sentence embeddings per batch | Cheap (forward pass only) |
 
 ---
 

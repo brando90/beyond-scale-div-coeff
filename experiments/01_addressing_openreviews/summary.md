@@ -19,11 +19,11 @@
 
 | # | Experiment | Priority | Status |
 |---|-----------|----------|--------|
-| 02 | Baseline diversity metrics (Vendi, N-gram, embedding) | CRITICAL | Scripts written |
-| 03 | Downstream benchmarks (ARC, HellaSwag, WinoGrande, LAMBADA) | CRITICAL | Scripts written |
-| 04 | New datasets div coeff (FineWeb, Dolma, RedPajama) | CRITICAL | Scaffold ready |
-| 05 | Confounding ablations (size, domain, vocab overlap) | CRITICAL | Scaffold ready |
-| 06 | GPT-4 annotation validation | MEDIUM | Scaffold ready |
+| 02 | Baseline diversity metrics (Vendi, N-gram, GPT-2 embedding, SBERT embedding) | CRITICAL | Scripts ready, partial results (needs rerun with Task2Vec + SBERT) |
+| 03 | Downstream benchmarks (ARC, HellaSwag, WinoGrande, LAMBADA) | CRITICAL | **DONE** — 22 models scored, plots generated |
+| 04 | New datasets div coeff (FineWeb, FineWeb-Edu, Dolma, RedPajama) | CRITICAL | Script ready, needs GPU run |
+| 05 | Confounding ablations (size, domain, vocab overlap) | CRITICAL | All 3 ablation scripts ready; B+C have results, A needs GPU run |
+| 06 | GPT-4 annotation validation | MEDIUM | **DONE** — 82.8% agreement, κ=0.655 |
 
 ## Writing tasks (no separate experiment folder needed)
 

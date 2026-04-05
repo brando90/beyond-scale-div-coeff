@@ -192,6 +192,53 @@ def compute_mean_embedding_diversity(
 
 
 # ---------------------------------------------------------------------------
+# 2b. SBERT embedding cosine distance
+# ---------------------------------------------------------------------------
+def _get_sbert_batch_embedding(
+    texts: list[str],
+    sbert_model,
+    max_seq_len: int = 128,
+) -> np.ndarray:
+    """Get a single embedding vector for a batch using SBERT (sentence-transformers).
+
+    Unlike GPT-2 hidden states, SBERT models (e.g. all-MiniLM-L6-v2) are
+    explicitly trained to produce meaningful sentence embeddings via contrastive
+    learning. This makes them a stronger "mean embedding" baseline.
+    """
+    # Truncate texts to roughly max_seq_len tokens worth of characters
+    truncated = [t[:max_seq_len * 5] for t in texts]
+    embeddings = sbert_model.encode(truncated, show_progress_bar=False, normalize_embeddings=True)
+    # Mean-pool over samples to get one vector per batch
+    return embeddings.mean(axis=0)
+
+
+def compute_sbert_diversity(
+    batches: list[list[str]],
+    sbert_model,
+    max_seq_len: int = 128,
+) -> float:
+    """Compute pairwise cosine distance of SBERT mean embeddings per batch.
+
+    Uses sentence-transformers (e.g. all-MiniLM-L6-v2) which produce embeddings
+    trained for semantic similarity. Addresses reviewer v5Te: "Other textual
+    embedding methods should be considered."
+    """
+    batch_embeddings = []
+    for batch_texts in batches:
+        emb = _get_sbert_batch_embedding(batch_texts, sbert_model, max_seq_len)
+        batch_embeddings.append(emb)
+
+    n = len(batch_embeddings)
+    distances = []
+    for i in range(n):
+        for j in range(i + 1, n):
+            d = cosine(batch_embeddings[i], batch_embeddings[j])
+            distances.append(d)
+
+    return float(np.mean(distances)) if distances else 0.0
+
+
+# ---------------------------------------------------------------------------
 # 3. Vendi Score
 # ---------------------------------------------------------------------------
 def compute_vendi_score(
@@ -340,6 +387,8 @@ def main():
                         help="Skip Task2Vec (use if already computed)")
     parser.add_argument("--skip_vendi", action="store_true",
                         help="Skip Vendi Score (slow, O(N^2))")
+    parser.add_argument("--skip_sbert", action="store_true",
+                        help="Skip SBERT embedding diversity")
     args = parser.parse_args()
 
     np.random.seed(SEED)
@@ -355,6 +404,18 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
     embedding_model = AutoModel.from_pretrained(model_name).to(args.device)
+
+    # Load SBERT model (sentence-transformers) for semantic embedding baseline
+    sbert_model = None
+    if not args.skip_sbert:
+        try:
+            from sentence_transformers import SentenceTransformer
+            sbert_name = "all-MiniLM-L6-v2"
+            print(f"\nLoading SBERT model ({sbert_name})...")
+            sbert_model = SentenceTransformer(sbert_name, device=args.device)
+        except ImportError:
+            print("WARNING: sentence-transformers not installed. pip install sentence-transformers")
+            print("  Skipping SBERT baseline.")
 
     all_results = []
 
@@ -387,6 +448,13 @@ def main():
         )
         result["mean_embedding_cosine"] = emb_div
         print(f"    mean_embedding_cosine: {emb_div:.4f}")
+
+        # --- SBERT embedding cosine ---
+        if sbert_model is not None:
+            print("  Computing SBERT embedding diversity...")
+            sbert_div = compute_sbert_diversity(text_batches, sbert_model)
+            result["sbert_embedding_cosine"] = sbert_div
+            print(f"    sbert_embedding_cosine: {sbert_div:.4f}")
 
         # --- Vendi Score ---
         if not args.skip_vendi:

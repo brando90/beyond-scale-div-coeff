@@ -11,7 +11,7 @@ hostname
 nvidia-smi --query-gpu=index,memory.used,memory.free --format=csv,noheader
 
 conda activate beyond_scale_div_coeff
-pip install vendi-score  # for Vendi Score
+pip install vendi-score sentence-transformers  # for Vendi Score + SBERT baseline
 ```
 
 ## Step 1 — Run baseline metrics computation

@@ -8,44 +8,47 @@
 
 ```bash
 conda activate beyond_scale_div_coeff
-cd ~/beyond-scale-language-data-diversity
+cd ~/beyond-scale-div-coeff
 ```
 
-## Step 1 — Compute
+## Step 1 — Compute diversity coefficients
 
 ```bash
-# FineWeb
-CUDA_VISIBLE_DEVICES=0 python src/diversity/main.py \
-    --task_name c4 \
-    --output_dir ./experiments/04_new_datasets_div_coeff/expt_results/fineweb \
-    --num_tasks 600 --batch_size 512 --pretrained --finetune \
-    --buffer_size 500000
-# NOTE: You'll need to modify main.py to add FineWeb as a dataset option,
-# or write a wrapper script that loads FineWeb and calls get_diversity_coefficient() directly.
+# Full run (all 4 datasets — ~8-12 hours on 1 GPU with 600 batches):
+CUDA_VISIBLE_DEVICES=0 python experiments/04_new_datasets_div_coeff/compute_new_datasets_div_coeff.py
+
+# Single dataset (for partial runs or debugging):
+CUDA_VISIBLE_DEVICES=0 python experiments/04_new_datasets_div_coeff/compute_new_datasets_div_coeff.py \
+    --datasets fineweb
+
+# Quick test (fewer batches):
+CUDA_VISIBLE_DEVICES=0 python experiments/04_new_datasets_div_coeff/compute_new_datasets_div_coeff.py \
+    --datasets fineweb --num_batches 10 --batch_size 64
 ```
 
-For datasets not in main.py's supported list, use the API directly:
+## Step 2 — Verify
 
-```python
-from datasets import load_dataset
-from transformers import GPT2LMHeadModel, AutoTokenizer
-from diversity.div_coeff import get_diversity_coefficient
-
-ds = load_dataset("HuggingFaceFW/fineweb", split="train", streaming=True)
-tokenizer = AutoTokenizer.from_pretrained("gpt2")
-probe = GPT2LMHeadModel.from_pretrained("gpt2").cuda()
-
-results = get_diversity_coefficient(ds, tokenize_map, probe, tokenizer,
-    batch_size=512, num_batches=600, seed=42)
-print(f"FineWeb div_coeff: {results['div_coeff']:.4f} ± {results['div_coeff_ci']:.4f}")
-```
-
-## Step 2 — Aggregate and update Table 1
-
-Append new values to `expt_results/new_datasets_div_coeff.csv`.
-
-## Verification
-
+- [ ] `expt_results/new_datasets_div_coeff.csv` has all 4 datasets
 - [ ] Each dataset has div_coeff ± CI
-- [ ] Values are in expected range (0.15-0.25 for general web data)
-- [ ] Results are reproducible (same seed → same value)
+- [ ] Values are in expected range (0.15–0.25 for general web data)
+- [ ] No NaN values (or explained why missing)
+- [ ] Results printed comparison table against existing Table 1 values
+
+## Step 3 — Update Table 1 in paper
+
+After results are verified, update Table 1 in:
+```
+paper_latex/DMLR_2026_BeyondScale/03_experiments.tex
+```
+
+Append new rows for FineWeb, FineWeb-Edu, Dolma, RedPajama with their
+diversity coefficients and confidence intervals.
+
+## Interpretation guide
+
+- **General web datasets (FineWeb, Dolma, RedPajama):** Expect div_coeff ~0.20–0.23
+  (similar to C4, OpenWebText, Pile-CC since they're all broad web crawls).
+- **FineWeb-Edu:** May be slightly lower than FineWeb since it's filtered for
+  educational content (narrower domain).
+- **If values are outside 0.10–0.30:** Investigate — possibly a data loading
+  issue (wrong text field, empty examples, etc.).
