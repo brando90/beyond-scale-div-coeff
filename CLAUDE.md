@@ -1,4 +1,4 @@
-# Project: beyond-scale-language-data-diversity
+# Project: beyond-scale-div-coeff
 
 Read the home-level agent index for environment context:
 - `~/agents-config/INDEX_RULES.md`
