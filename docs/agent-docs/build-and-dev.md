@@ -1,4 +1,4 @@
-# Build & Dev — beyond-scale-language-data-diversity
+# Build & Dev — beyond-scale-div-coeff
 
 ## Installation
 
@@ -6,12 +6,12 @@
 # Conda (recommended)
 conda create -n beyond_scale_div_coeff python=3.11 -y
 conda activate beyond_scale_div_coeff
-pip install -e ~/beyond-scale-language-data-diversity
+pip install -e ~/beyond-scale-div-coeff
 
 # Or venv
 python3.11 -m venv ~/.virtualenvs/beyond_scale_div_coeff
 source ~/.virtualenvs/beyond_scale_div_coeff/bin/activate
-pip install -e ~/beyond-scale-language-data-diversity
+pip install -e ~/beyond-scale-div-coeff
 ```
 
 The `install.sh` script installs via conda and also sets up dependencies (`ultimate-utils`, `ultimate-anatome`).

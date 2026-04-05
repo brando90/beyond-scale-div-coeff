@@ -1,4 +1,4 @@
-# Architecture — beyond-scale-language-data-diversity
+# Architecture — beyond-scale-div-coeff
 
 ## `src/diversity/` — Core module
 
