@@ -199,8 +199,13 @@ def write_summary_report(df: pd.DataFrame, output_dir: Path) -> None:
         ("log_p_contrast", "log P(correct) - mean log P(incorrect)"),
         ("acc", "Accuracy"),
     ]:
-        y_all = df[metric].values
-        c = correlations(x_all, y_all)
+        if metric not in df.columns or df[metric].isna().all():
+            lines.append(f"\n--- {label}: NO DATA ---")
+            continue
+        mask = ~df[metric].isna()
+        y_all = df.loc[mask, metric].values
+        x_sub = df.loc[mask, "div_coeff"].values
+        c = correlations(x_sub, y_all)
         lines.append(f"\n--- {label} (all {len(df)} models) ---")
         lines.append(f"  y = {c['slope']:.4f}x + {c['intercept']:.4f}")
         lines.append(f"  R² = {c['r2']:.4f}")
@@ -209,7 +214,8 @@ def write_summary_report(df: pd.DataFrame, output_dir: Path) -> None:
         lines.append(f"  Kendall  τ = {c['kendall_t']:.4f}  (p={c['kendall_p']:.2e})")
 
         lines.append(f"\n  Per-family breakdown:")
-        for family, gdf in df.groupby("family"):
+        df_valid = df[mask]
+        for family, gdf in df_valid.groupby("family"):
             if len(gdf) < 2:
                 lines.append(f"    {family}: only {len(gdf)} point(s), skipping")
                 continue
@@ -262,7 +268,13 @@ def plot_all(df: pd.DataFrame, output_dir: Path) -> None:
                         fontsize=7, rotation=90)
 
     for metric, ylabel, fname in metric_info:
-        y_all = df[metric].values
+        if metric not in df.columns or df[metric].isna().all():
+            print(f"Skipping {metric}: no data")
+            continue
+
+        df_plot = df[~df[metric].isna()]
+        x_all = df_plot["div_coeff"].values
+        y_all = df_plot[metric].values
         c_all = correlations(x_all, y_all)
 
         # Print correlations to stdout too
@@ -272,7 +284,7 @@ def plot_all(df: pd.DataFrame, output_dir: Path) -> None:
 
         # --- Left: all models, overall fit ---
         ax = axes[0]
-        for family, gdf in df.groupby("family"):
+        for family, gdf in df_plot.groupby("family"):
             color = FAMILY_COLORS.get(family, "gray")
             ax.scatter(gdf["div_coeff"], gdf[metric],
                        label=family, color=color, s=80, zorder=3)
@@ -299,7 +311,7 @@ def plot_all(df: pd.DataFrame, output_dir: Path) -> None:
 
         # --- Right: per-family fits ---
         ax2 = axes[1]
-        for family, gdf in df.groupby("family"):
+        for family, gdf in df_plot.groupby("family"):
             color = FAMILY_COLORS.get(family, "gray")
             fx = gdf["div_coeff"].values
             fy = gdf[metric].values
