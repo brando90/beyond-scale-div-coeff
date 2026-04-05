@@ -164,6 +164,7 @@ cython_debug/
 
 # Ignore all .code-workspace files
 *.code-workspace
+!bm-beyond-scale-div-coeff.code-workspace
 
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
