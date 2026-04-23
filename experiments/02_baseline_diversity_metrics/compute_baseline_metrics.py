@@ -411,15 +411,22 @@ def main():
                 load_kwargs["trust_remote_code"] = True
                 ds = load_dataset(**load_kwargs)
 
-                def tokenize_map(example):
-                    return tokenizer(
-                        example["text"] if "text" in example else example[list(example.keys())[0]],
-                        truncation=True, max_length=MAX_SEQ_LEN, padding="max_length",
-                        return_tensors="pt"
-                    )
+                # Determine text column and columns to remove
+                _sample = next(iter(ds))
+                _text_col = "text" if "text" in _sample else list(_sample.keys())[0]
+                _remove_cols = list(_sample.keys())
+
+                def preprocess_fn(examples):
+                    return tokenizer(examples[_text_col], truncation=True,
+                                     max_length=MAX_SEQ_LEN, padding="max_length",
+                                     return_tensors="pt")
+
+                def t2v_map_fn(batch):
+                    return batch.map(preprocess_fn, batched=True,
+                                     remove_columns=_remove_cols).with_format("torch")
 
                 t2v_results = get_diversity_coefficient(
-                    ds, tokenize_map, probe, tokenizer,
+                    ds, t2v_map_fn, probe,
                     batch_size=args.batch_size,
                     num_batches=args.num_batches,
                     seed=SEED,

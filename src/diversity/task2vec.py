@@ -198,7 +198,8 @@ class Task2Vec:
         step, epoch, loss = None, None, torch.tensor(-1.0)
         for epoch in tqdm(range(classifier_opts.get("epochs", epochs)), desc="Epoch step", leave=leave_pbar_on_screen):
             metrics = AverageMeter()
-            for step, batch in tqdm(enumerate(data_loader), desc='Iter step', total=len(data_loader), leave=leave_pbar_on_screen):
+            _total = len(data_loader) if hasattr(data_loader.dataset, '__len__') else None
+            for step, batch in tqdm(enumerate(data_loader), desc='Iter step', total=_total, leave=leave_pbar_on_screen):
                 optimizer.zero_grad()
                 inputs = {'input_ids': batch['input_ids'].to(device),
                         'attention_mask': batch['attention_mask'].to(device)}
@@ -230,8 +231,10 @@ class Task2Vec:
         device = get_device(self.model)
 
         # num_examples = int(classifier_opts.get("task_batch_size", 256) / loader_opts.get('batch_size', 8))
-        num_examples = len(list(data_loader))  # not idea but it's quicker in dev time, usually we won't feed the entire data set to task2vec so this should be fine
-        n_batches = num_examples
+        if hasattr(data_loader.dataset, '__len__'):
+            n_batches = len(data_loader)
+        else:
+            n_batches = None  # unknown length for streaming datasets
 
         logging.info("Computing Fisher...")
         for p in self.model.parameters():

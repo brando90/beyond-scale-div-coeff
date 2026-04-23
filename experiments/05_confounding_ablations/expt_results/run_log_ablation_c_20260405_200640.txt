@@ -1,0 +1,64 @@
+======================================================================
+ABLATION C: Domain Control Analysis
+======================================================================
+  GPT2_117M_2.2B_USPTO                          div=0.158 domain=patents  MMLU=0.2331
+  GPT2_117M_2.2B_PubMedAbs                      div=0.168 domain=medical  MMLU=0.2309
+  GPT2_117M_2.2B_USPTOAndPubMedAbs              div=0.195 domain=mixed    MMLU=0.2409
+  GPT2_345M_2.2B_USPTO                          div=0.158 domain=patents  MMLU=0.2314
+  GPT2_345M_2.2B_PubMedAbs                      div=0.168 domain=medical  MMLU=0.2321
+  GPT2_345M_2.2B_USPTOAndPubMedAbs              div=0.195 domain=mixed    MMLU=0.2320
+  GPT2_51M_1.31B_USPTO                          div=0.158 domain=patents  MMLU=0.2305
+  GPT2_51M_1.31B_PubMedAbs                      div=0.168 domain=medical  MMLU=0.2399
+  GPT2_51M_1.31B_USPTOAndPubMedAbs              div=0.195 domain=mixed    MMLU=0.2312
+
+Saved → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/05_confounding_ablations/expt_results/ablation_c_domain_control.csv
+
+======================================================================
+DOMAIN CONTROL ANALYSIS
+======================================================================
+
+GPT2-117M (2.2B tokens):
+  Training Data                  Domain        Div     MMLU
+  ------------------------------------------------------------
+  GPT2_117M_2.2B_USPTO           patents     0.158   0.2331
+  GPT2_117M_2.2B_PubMedAbs       medical     0.168   0.2309
+  GPT2_117M_2.2B_USPTOAndPubMedAbs mixed       0.195   0.2409
+  → Diversity ranking: ['USPTO', 'PubMedAbs', 'USPTOAndPubMedAbs']
+  → Performance ranking: ['PubMedAbs', 'USPTO', 'USPTOAndPubMedAbs']
+  ✓ Mixed (div=0.195) outperforms both individual datasets
+    Mixed: 0.2409 > Best individual: 0.2331
+
+GPT2-345M (2.2B tokens):
+  Training Data                  Domain        Div     MMLU
+  ------------------------------------------------------------
+  GPT2_345M_2.2B_USPTO           patents     0.158   0.2314
+  GPT2_345M_2.2B_PubMedAbs       medical     0.168   0.2321
+  GPT2_345M_2.2B_USPTOAndPubMedAbs mixed       0.195   0.2320
+  → Diversity ranking: ['USPTO', 'PubMedAbs', 'USPTOAndPubMedAbs']
+  → Performance ranking: ['USPTO', 'USPTOAndPubMedAbs', 'PubMedAbs']
+  ✗ Mixed does NOT outperform best individual
+    Mixed: 0.2320 vs Best individual: 0.2321
+
+GPT2-51M-1.31B (1.31B tokens):
+  Training Data                  Domain        Div     MMLU
+  ------------------------------------------------------------
+  GPT2_51M_1.31B_USPTO           patents     0.158   0.2305
+  GPT2_51M_1.31B_PubMedAbs       medical     0.168   0.2399
+  GPT2_51M_1.31B_USPTOAndPubMedAbs mixed       0.195   0.2312
+  → Diversity ranking: ['USPTO', 'PubMedAbs', 'USPTOAndPubMedAbs']
+  → Performance ranking: ['USPTO', 'USPTOAndPubMedAbs', 'PubMedAbs']
+  ✗ Mixed does NOT outperform best individual
+    Mixed: 0.2312 vs Best individual: 0.2399
+
+======================================================================
+CONCLUSION
+======================================================================
+  Average MMLU by training domain:
+    Patents (USPTO, div=0.158): 0.2317
+    Medical (PubMed, div=0.168): 0.2343
+    Mixed (USPTO+PubMed, div=0.195): 0.2347
+
+  The mixed dataset (highest diversity) outperforms both individual
+  datasets on MMLU, despite none being a domain match for MMLU.
+  This supports diversity (not domain match) as the driver.
+

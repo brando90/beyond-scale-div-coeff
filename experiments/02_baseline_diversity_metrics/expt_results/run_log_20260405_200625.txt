@@ -1,0 +1,245 @@
+Device: cuda
+Datasets: ['c4', 'wikitext', 'the_pile', 'pile_cc', 'pubmed', 'uspto', 'hacker_news', 'nih_exporter', 'openwebtext']
+Batches: 100 x 512
+
+Loading gpt2...
+
+============================================================
+Dataset: c4
+============================================================
+  Loading c4...
+  Sampled 100 batches of 512 samples from c4
+  Computing N-gram diversity...
+    ngram_1_within: 0.2001
+    ngram_2_within: 0.7131
+    ngram_3_within: 0.9213
+    ngram_4_within: 0.9696
+    ngram_1_cross_jaccard: 0.6436
+    ngram_2_cross_jaccard: 0.9165
+    ngram_3_cross_jaccard: 0.9793
+    ngram_4_cross_jaccard: 0.9949
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0001
+  Computing Vendi Score...
+    vendi_score: 1.3656
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+============================================================
+Dataset: wikitext
+============================================================
+  Loading wikitext...
+  Sampled 100 batches of 512 samples from wikitext
+  Computing N-gram diversity...
+    ngram_1_within: 0.2148
+    ngram_2_within: 0.6893
+    ngram_3_within: 0.9012
+    ngram_4_within: 0.9634
+    ngram_1_cross_jaccard: 0.6670
+    ngram_2_cross_jaccard: 0.9190
+    ngram_3_cross_jaccard: 0.9762
+    ngram_4_cross_jaccard: 0.9915
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0002
+  Computing Vendi Score...
+    vendi_score: 1.4432
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+============================================================
+Dataset: the_pile
+============================================================
+  Loading the_pile...
+  Sampled 100 batches of 512 samples from the_pile
+  Computing N-gram diversity...
+    ngram_1_within: 0.1914
+    ngram_2_within: 0.6638
+    ngram_3_within: 0.8555
+    ngram_4_within: 0.9174
+    ngram_1_cross_jaccard: 0.6384
+    ngram_2_cross_jaccard: 0.9161
+    ngram_3_cross_jaccard: 0.9735
+    ngram_4_cross_jaccard: 0.9880
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0002
+  Computing Vendi Score...
+    vendi_score: 1.6034
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+============================================================
+Dataset: pile_cc
+============================================================
+  Loading pile_cc...
+  ERROR loading pile_cc: Dataset 'conceptofmind/pile_cc' doesn't exist on the Hub or cannot be accessed.
+
+============================================================
+Dataset: pubmed
+============================================================
+  Loading pubmed...
+  Sampled 100 batches of 512 samples from pubmed
+  Computing N-gram diversity...
+    ngram_1_within: 0.1464
+    ngram_2_within: 0.6200
+    ngram_3_within: 0.8615
+    ngram_4_within: 0.9356
+    ngram_1_cross_jaccard: 0.5441
+    ngram_2_cross_jaccard: 0.8742
+    ngram_3_cross_jaccard: 0.9646
+    ngram_4_cross_jaccard: 0.9890
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0002
+  Computing Vendi Score...
+    vendi_score: 1.4292
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+============================================================
+Dataset: uspto
+============================================================
+  Loading uspto...
+  Sampled 100 batches of 512 samples from uspto
+  Computing N-gram diversity...
+    ngram_1_within: 0.1164
+    ngram_2_within: 0.5251
+    ngram_3_within: 0.7906
+    ngram_4_within: 0.8875
+    ngram_1_cross_jaccard: 0.5475
+    ngram_2_cross_jaccard: 0.8618
+    ngram_3_cross_jaccard: 0.9532
+    ngram_4_cross_jaccard: 0.9819
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0001
+  Computing Vendi Score...
+    vendi_score: 1.4901
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+============================================================
+Dataset: hacker_news
+============================================================
+  Loading hacker_news...
+  ERROR loading hacker_news: Dataset 'conceptofmind/pile_hacker_news' doesn't exist on the Hub or cannot be accessed.
+
+============================================================
+Dataset: nih_exporter
+============================================================
+  Loading nih_exporter...
+  ERROR loading nih_exporter: Dataset 'conceptofmind/pile_nih-exporter' doesn't exist on the Hub or cannot be accessed.
+
+============================================================
+Dataset: openwebtext
+============================================================
+  Loading openwebtext...
+  Sampled 100 batches of 512 samples from openwebtext
+  Computing N-gram diversity...
+    ngram_1_within: 0.1908
+    ngram_2_within: 0.6884
+    ngram_3_within: 0.9017
+    ngram_4_within: 0.9614
+    ngram_1_cross_jaccard: 0.6397
+    ngram_2_cross_jaccard: 0.9102
+    ngram_3_cross_jaccard: 0.9748
+    ngram_4_cross_jaccard: 0.9906
+  Computing mean embedding cosine diversity...
+    mean_embedding_cosine: 0.0001
+  Computing Vendi Score...
+    vendi_score: 1.4396
+  Computing Task2Vec diversity coefficient...
+shuffle=True
+--> batch_num=0
+
+    Task2Vec ERROR: 'IterableDataset' object has no attribute 'keys'
+
+Saved → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/02_baseline_diversity_metrics/expt_results/baseline_comparison.csv
+    dataset  ngram_1_within  ngram_2_within  ngram_3_within  ngram_4_within  ngram_1_cross_jaccard  ngram_2_cross_jaccard  ngram_3_cross_jaccard  ngram_4_cross_jaccard  mean_embedding_cosine  vendi_score  task2vec_div_coeff
+         c4        0.200073        0.713123        0.921339        0.969650               0.643595               0.916514               0.979261               0.994877               0.000102     1.365646                 NaN
+   wikitext        0.214819        0.689277        0.901187        0.963374               0.667006               0.918979               0.976211               0.991480               0.000217     1.443238                 NaN
+   the_pile        0.191409        0.663785        0.855498        0.917445               0.638441               0.916060               0.973529               0.987965               0.000248     1.603428                 NaN
+     pubmed        0.146397        0.619974        0.861537        0.935554               0.544074               0.874177               0.964573               0.989006               0.000172     1.429192                 NaN
+      uspto        0.116386        0.525128        0.790597        0.887508               0.547454               0.861808               0.953234               0.981894               0.000128     1.490136                 NaN
+openwebtext        0.190780        0.688408        0.901660        0.961350               0.639723               0.910230               0.974785               0.990574               0.000144     1.439584                 NaN
+
+============================================================
+Rank correlations between metrics
+============================================================
+  ngram_1_within vs ngram_2_within: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_1_within vs ngram_3_within: Spearman ρ = 0.600 (p=2.080e-01, n=6)
+  ngram_1_within vs ngram_4_within: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_1_within vs ngram_1_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_1_within vs ngram_2_cross_jaccard: Spearman ρ = 1.000 (p=0.000e+00, n=6)
+  ngram_1_within vs ngram_3_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_1_within vs ngram_4_cross_jaccard: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_1_within vs mean_embedding_cosine: Spearman ρ = 0.257 (p=6.228e-01, n=6)
+  ngram_1_within vs vendi_score: Spearman ρ = -0.143 (p=7.872e-01, n=6)
+  ngram_2_within vs ngram_3_within: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_2_within vs ngram_4_within: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_2_within vs ngram_1_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_2_within vs ngram_2_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_2_within vs ngram_3_cross_jaccard: Spearman ρ = 1.000 (p=0.000e+00, n=6)
+  ngram_2_within vs ngram_4_cross_jaccard: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_2_within vs mean_embedding_cosine: Spearman ρ = -0.143 (p=7.872e-01, n=6)
+  ngram_2_within vs vendi_score: Spearman ρ = -0.486 (p=3.287e-01, n=6)
+  ngram_3_within vs ngram_4_within: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_3_within vs ngram_1_cross_jaccard: Spearman ρ = 0.657 (p=1.562e-01, n=6)
+  ngram_3_within vs ngram_2_cross_jaccard: Spearman ρ = 0.600 (p=2.080e-01, n=6)
+  ngram_3_within vs ngram_3_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_3_within vs ngram_4_cross_jaccard: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_3_within vs mean_embedding_cosine: Spearman ρ = -0.371 (p=4.685e-01, n=6)
+  ngram_3_within vs vendi_score: Spearman ρ = -0.771 (p=7.240e-02, n=6)
+  ngram_4_within vs ngram_1_cross_jaccard: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_4_within vs ngram_2_cross_jaccard: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_4_within vs ngram_3_cross_jaccard: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_4_within vs ngram_4_cross_jaccard: Spearman ρ = 1.000 (p=0.000e+00, n=6)
+  ngram_4_within vs mean_embedding_cosine: Spearman ρ = -0.257 (p=6.228e-01, n=6)
+  ngram_4_within vs vendi_score: Spearman ρ = -0.714 (p=1.108e-01, n=6)
+  ngram_1_cross_jaccard vs ngram_2_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_1_cross_jaccard vs ngram_3_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_1_cross_jaccard vs ngram_4_cross_jaccard: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_1_cross_jaccard vs mean_embedding_cosine: Spearman ρ = -0.029 (p=9.572e-01, n=6)
+  ngram_1_cross_jaccard vs vendi_score: Spearman ρ = -0.143 (p=7.872e-01, n=6)
+  ngram_2_cross_jaccard vs ngram_3_cross_jaccard: Spearman ρ = 0.886 (p=1.885e-02, n=6)
+  ngram_2_cross_jaccard vs ngram_4_cross_jaccard: Spearman ρ = 0.771 (p=7.240e-02, n=6)
+  ngram_2_cross_jaccard vs mean_embedding_cosine: Spearman ρ = 0.257 (p=6.228e-01, n=6)
+  ngram_2_cross_jaccard vs vendi_score: Spearman ρ = -0.143 (p=7.872e-01, n=6)
+  ngram_3_cross_jaccard vs ngram_4_cross_jaccard: Spearman ρ = 0.943 (p=4.805e-03, n=6)
+  ngram_3_cross_jaccard vs mean_embedding_cosine: Spearman ρ = -0.143 (p=7.872e-01, n=6)
+  ngram_3_cross_jaccard vs vendi_score: Spearman ρ = -0.486 (p=3.287e-01, n=6)
+  ngram_4_cross_jaccard vs mean_embedding_cosine: Spearman ρ = -0.257 (p=6.228e-01, n=6)
+  ngram_4_cross_jaccard vs vendi_score: Spearman ρ = -0.714 (p=1.108e-01, n=6)
+  mean_embedding_cosine vs vendi_score: Spearman ρ = 0.600 (p=2.080e-01, n=6)
+
+Saved → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/02_baseline_diversity_metrics/expt_results/rank_correlation.csv
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+Got disconnected from remote data host. Retrying in 5sec [2/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [2/20]
+Got disconnected from remote data host. Retrying in 5sec [1/20]
+WARNING:datasets.utils.file_utils:Got disconnected from remote data host. Retrying in 5sec [1/20]
+
+

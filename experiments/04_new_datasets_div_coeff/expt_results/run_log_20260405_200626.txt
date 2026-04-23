@@ -1,0 +1,40 @@
+
+Epoch step:   0%|          | 0/5 [00:00<?, ?it/s]
+Epoch step:   0%|          | 0/5 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/04_new_datasets_div_coeff/compute_new_div_coeffs.py", line 174, in <module>
+    main()
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/04_new_datasets_div_coeff/compute_new_div_coeffs.py", line 155, in main
+    result = compute_for_dataset(name, NEW_DATASETS[name], probe, tokenizer, args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/04_new_datasets_div_coeff/compute_new_div_coeffs.py", line 109, in compute_for_dataset
+    results = get_diversity_coefficient(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/src/diversity/div_coeff.py", line 69, in get_diversity_coefficient
+    embedding, loss = Task2Vec(probe_network, classifier_opts={'seed': seed}).embed(batch)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/src/diversity/task2vec.py", line 141, in embed
+    loss = self._finetune_classifier(dataset, loader_opts=self.loader_opts, classifier_opts=self.classifier_opts, max_samples=self.max_samples, epochs=epochs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/dfs/scratch0/brando9/beyond-scale-div-coeff/src/diversity/task2vec.py", line 201, in _finetune_classifier
+    for step, batch in tqdm(enumerate(data_loader), desc='Iter step', total=len(data_loader), leave=leave_pbar_on_screen):
+                                                                            ^^^^^^^^^^^^^^^^
+  File "/lfs/skampere2/0/brando9/miniconda/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 520, in __len__
+    length = self._IterableDataset_len_called = len(self.dataset)  # type: ignore[assignment, arg-type]
+                                                ^^^^^^^^^^^^^^^^^
+TypeError: object of type 'IterableDataset' has no len()
+
+ERROR conda.cli.main_run:execute(125): `conda run python experiments/04_new_datasets_div_coeff/compute_new_div_coeffs.py --num_batches 600 --batch_size 512` failed. (See above for error)
+
+============================================================
+Computing div_coeff for: fineweb
+  HF path: HuggingFaceFW/fineweb
+  Config: sample-10BT
+  num_batches: 600, batch_size: 512
+============================================================
+
+shuffle=True
+--> batch_num=0
+
+self.classifier_opts={'seed': 42}
+

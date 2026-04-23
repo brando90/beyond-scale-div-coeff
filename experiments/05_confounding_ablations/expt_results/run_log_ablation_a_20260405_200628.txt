@@ -1,0 +1,45 @@
+ABLATION A: Size Control
+Computing diversity coefficients on equal-size subsamples
+
+
+============================================================
+Dataset: c4 (subsampled to 50000 samples)
+============================================================
+shuffle=True
+--> batch_num=0
+
+ERROR on c4: 'IterableDataset' object has no attribute 'get'
+
+============================================================
+Dataset: wikitext (subsampled to 50000 samples)
+============================================================
+shuffle=True
+--> batch_num=0
+
+ERROR on wikitext: 'IterableDataset' object has no attribute 'get'
+
+============================================================
+Dataset: openwebtext (subsampled to 50000 samples)
+============================================================
+shuffle=True
+--> batch_num=0
+
+ERROR on openwebtext: 'IterableDataset' object has no attribute 'get'
+
+============================================================
+Dataset: pubmed (subsampled to 50000 samples)
+============================================================
+shuffle=True
+--> batch_num=0
+
+ERROR on pubmed: 'IterableDataset' object has no attribute 'get'
+
+============================================================
+Dataset: uspto (subsampled to 50000 samples)
+============================================================
+shuffle=True
+--> batch_num=0
+
+ERROR on uspto: 'IterableDataset' object has no attribute 'get'
+Not enough results for analysis.
+

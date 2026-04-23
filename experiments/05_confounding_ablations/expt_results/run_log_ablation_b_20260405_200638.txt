@@ -1,0 +1,45 @@
+Token indices sequence length is longer than the specified maximum sequence length for this model (1964 > 1024). Running this sequence through the model will result in indexing errors
+
+Tokenizer vocab size: 50257
+
+--- Loading training datasets ---
+  USPTO...
+    Unique tokens: 23846, Total tokens: 1741997
+  PubMed...
+    Unique tokens: 25189, Total tokens: 1399453
+  USPTO+PubMed (combined): Unique tokens: 31089, Total tokens: 3141450
+
+--- Loading evaluation datasets ---
+  C4...
+    Unique tokens: 40490, Total tokens: 1346202
+  OpenWebText2...
+    Unique tokens: 44402, Total tokens: 2074151
+
+--- Computing Jaccard similarities ---
+  USPTO → C4: Jaccard=0.5077, Weighted=0.3641, Shared=21665
+  USPTO → OpenWebText2: Jaccard=0.4877, Weighted=0.3726, Shared=22373
+  PubMed → C4: Jaccard=0.5233, Weighted=0.3635, Shared=22563
+  PubMed → OpenWebText2: Jaccard=0.5107, Weighted=0.3227, Shared=23525
+  USPTO+PubMed → C4: Jaccard=0.6271, Weighted=0.2807, Shared=27587
+  USPTO+PubMed → OpenWebText2: Jaccard=0.6192, Weighted=0.3331, Shared=28869
+
+Saved → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/05_confounding_ablations/expt_results/ablation_b_vocab_overlap.csv
+
+============================================================
+ANALYSIS: Does diversity correlate with vocab overlap?
+============================================================
+
+Eval on C4:
+  USPTO           div=0.158  Jaccard=0.5077  Weighted=0.3641
+  PubMed          div=0.168  Jaccard=0.5233  Weighted=0.3635
+  USPTO+PubMed    div=0.195  Jaccard=0.6271  Weighted=0.2807
+  ⚠ WARNING: Overlap increases with diversity (0.5077 → 0.6271)
+    This means vocab overlap could be a confounder
+
+Eval on OpenWebText2:
+  USPTO           div=0.158  Jaccard=0.4877  Weighted=0.3726
+  PubMed          div=0.168  Jaccard=0.5107  Weighted=0.3227
+  USPTO+PubMed    div=0.195  Jaccard=0.6192  Weighted=0.3331
+  ⚠ WARNING: Overlap increases with diversity (0.4877 → 0.6192)
+    This means vocab overlap could be a confounder
+

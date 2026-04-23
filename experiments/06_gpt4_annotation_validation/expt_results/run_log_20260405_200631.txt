@@ -1,0 +1,156 @@
+Loading dataset samples...
+  Loading c4...
+  Got 120 samples from c4
+  Loading wikitext...
+  Got 120 samples from wikitext
+  Loading openwebtext...
+  Got 120 samples from openwebtext
+  Loading bookcorpus...
+  Got 120 samples from bookcorpus
+
+Generated 30 pairs for annotation
+
+Pair 1/30: c4 (div=0.208) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics and styles, including cooking classes, technical discussions, fashion descriptions, SEO strategies, educational updates, train schedules, personal reflections, and socio-economic commentary, whereas Collection B focuses on a single narrative about a child and his interactions.
+
+Pair 2/30: bookcorpus (div=0.160) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and styles, including technical descriptions, business news, entertainment, religious teachings, academic discussions, web development, hospitality, and personal anecdotes, demonstrating greater diversity in subject matter and writing styles.
+
+Pair 3/30: bookcorpus (div=0.160) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and writing styles, including film critique, architecture, student protests, mineralogy, personal narrative, international rescue efforts, technical tutorials, and banking, demonstrating greater diversity in subject matter and vocabulary.
+
+Pair 4/30: bookcorpus (div=0.160) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and writing styles, including personal hobbies, locksmith services, moving companies, black magic, online dating, web development, geological history, and local news, demonstrating greater topical and stylistic diversity.
+
+Pair 5/30: c4 (div=0.208) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics including sports, art, animal welfare, science, gaming, and volunteering, with varied writing styles and vocabulary, whereas Collection B is focused on a single narrative theme with limited stylistic and vocabulary diversity.
+
+Pair 6/30: c4 (div=0.208) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics and styles, including volunteer announcements, travel descriptions, historical accounts, technical guides, and event promotions, demonstrating greater diversity in subject matter and writing style compared to the narrative-focused Collection B.
+
+Pair 7/30: wikitext (div=0.207) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a single topic but includes technical, narrative, and descriptive styles with varied vocabulary, while Collection B is limited to a single narrative style and topic.
+
+Pair 8/30: bookcorpus (div=0.160) vs wikitext (div=0.207)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics related to game development, music composition, sales, and reviews, with varied writing styles and vocabulary, compared to the more uniform narrative style and subject matter of Collection A.
+
+Pair 9/30: bookcorpus (div=0.160) vs wikitext (div=0.207)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics including video games, anime, manga, and historical buildings, with varied writing styles and vocabulary, compared to Collection A's focus on personal and fashion narratives.
+
+Pair 10/30: bookcorpus (div=0.160) vs wikitext (div=0.207)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B exhibits greater diversity as it covers historical and military topics with a formal and technical writing style, contrasting with Collection A's singular narrative focus on family relationships.
+
+Pair 11/30: bookcorpus (div=0.160) vs wikitext (div=0.207)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a historical and military topic with formal and technical writing, while Collection A focuses on a single narrative with informal dialogue and limited vocabulary diversity.
+
+Pair 12/30: wikitext (div=0.207) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a range of topics related to military history and operations with a formal and technical writing style, while Collection B focuses on a single narrative scene with informal dialogue and limited vocabulary diversity.
+
+Pair 13/30: bookcorpus (div=0.160) vs openwebtext (div=0.199)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics including international news, politics, music, food, crime, social movements, and corporate announcements, with varied writing styles and vocabulary.
+
+Pair 14/30: bookcorpus (div=0.160) vs openwebtext (div=0.199)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics, writing styles, and domains, including international news, custom motorcycles, music legacy, political commentary, eSports, ad technology, gaming, and activism, demonstrating greater diversity than Collection A.
+
+Pair 15/30: openwebtext (div=0.199) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics including cybersecurity, sports, gaming, music, politics, crime, space exploration, and international incidents, with varied writing styles and vocabulary, whereas Collection B focuses narrowly on personal and domestic themes with a consistent narrative style.
+
+Pair 16/30: openwebtext (div=0.199) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics including weather, social issues, technology, finance, politics, and personal stories, with varied writing styles and vocabulary, whereas Collection B focuses solely on a personal narrative with limited stylistic and topical diversity.
+
+Pair 17/30: bookcorpus (div=0.160) vs openwebtext (div=0.199)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics, including sports, reality TV, international news, comics, economics, politics, and crime, with varied writing styles and vocabulary.
+
+Pair 18/30: openwebtext (div=0.199) vs bookcorpus (div=0.160)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics including technology, sports, health, politics, and entertainment, with varied writing styles and vocabulary, whereas Collection B focuses on a single narrative with limited stylistic and topical diversity.
+
+Pair 19/30: c4 (div=0.208) vs openwebtext (div=0.199)
+  GPT-4: B | Correct: A | DISAGREE
+  Reason: Collection B covers a wider range of topics including politics, music, food, crime, business, and social movements, with varied writing styles from news reporting to informal commentary, demonstrating greater topical and stylistic diversity.
+
+Pair 20/30: openwebtext (div=0.199) vs c4 (div=0.208)
+  GPT-4: A | Correct: B | DISAGREE
+  Reason: Collection A covers a wider range of topics and styles, including international news, music, politics, gaming, technology, and lifestyle, with varied vocabulary and writing styles.
+
+Pair 21/30: c4 (div=0.208) vs openwebtext (div=0.199)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wider range of topics and styles, including film critique, architecture, student protests, mineralogy, personal narrative, international rescue efforts, technical tutorials, and banking, showcasing greater diversity in subject matter and writing styles.
+
+Pair 22/30: c4 (div=0.208) vs openwebtext (div=0.199)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wider range of topics and styles, including personal hobbies, locksmith services, moving companies, black magic, online dating, technical issues, geological history, and local dining, showcasing greater diversity in subject matter and writing styles.
+
+Pair 23/30: openwebtext (div=0.199) vs c4 (div=0.208)
+  GPT-4: A | Correct: B | DISAGREE
+  Reason: Collection A covers a wider range of topics including sports, reality TV, international news, comics, economics, politics, and crime, with varied writing styles and vocabulary.
+
+Pair 24/30: openwebtext (div=0.199) vs c4 (div=0.208)
+  GPT-4: A | Correct: B | DISAGREE
+  Reason: Collection A covers a wider range of topics and styles, including technology, sports, health, politics, and entertainment, with varied writing styles and vocabulary.
+
+Pair 25/30: c4 (div=0.208) vs wikitext (div=0.207)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wide range of topics including cooking, technology, fashion, education, transportation, entertainment, and socio-economic commentary, with varied writing styles and vocabulary, whereas Collection B focuses solely on different aspects of a single video game series.
+
+Pair 26/30: wikitext (div=0.207) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and writing styles, including technical, narrative, and informal styles across various domains such as business, religion, film, and personal anecdotes, compared to Collection A's focus on a single video game series.
+
+Pair 27/30: wikitext (div=0.207) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and styles, including film criticism, architecture, student protests, mineralogy, personal narratives, international news, technical guides, and banking, demonstrating greater diversity in subject matter and writing styles.
+
+Pair 28/30: wikitext (div=0.207) vs c4 (div=0.208)
+  GPT-4: B | Correct: B | AGREE
+  Reason: Collection B covers a wider range of topics and styles, including personal hobbies, technical services, cultural practices, online dating, and geological history, demonstrating greater diversity in subject matter and writing style.
+
+Pair 29/30: c4 (div=0.208) vs wikitext (div=0.207)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wider range of topics and styles, including sports, art, animal welfare, science, gaming, and volunteering, with varied writing styles and vocabulary, whereas Collection B focuses narrowly on historical military events.
+
+Pair 30/30: c4 (div=0.208) vs wikitext (div=0.207)
+  GPT-4: A | Correct: A | AGREE
+  Reason: Collection A covers a wider range of topics and styles, including travel, technology, insurance, events, and religious history, with varied vocabulary and domains.
+
+Saved annotations → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/06_gpt4_annotation_validation/expt_results/gpt4_annotations.csv
+Saved agreement stats → /dfs/scratch0/brando9/beyond-scale-div-coeff/experiments/06_gpt4_annotation_validation/expt_results/annotation_agreement.json
+
+============================================================
+RESULTS SUMMARY
+============================================================
+Agreement rate: 26/30 = 86.7%
+Cohen's kappa: 0.733
+
+Per pair type:
+  c4_vs_bookcorpus: 3/3 = 100.0%
+  bookcorpus_vs_c4: 3/3 = 100.0%
+  wikitext_vs_bookcorpus: 2/2 = 100.0%
+  bookcorpus_vs_wikitext: 4/4 = 100.0%
+  bookcorpus_vs_openwebtext: 3/3 = 100.0%
+  openwebtext_vs_bookcorpus: 3/3 = 100.0%
+  c4_vs_openwebtext: 2/3 = 66.7%
+  openwebtext_vs_c4: 0/3 = 0.0%
+  c4_vs_wikitext: 3/3 = 100.0%
+  wikitext_vs_c4: 3/3 = 100.0%
+
+Interpretation:
+  Strong agreement — Task2Vec captures human-recognizable diversity
+

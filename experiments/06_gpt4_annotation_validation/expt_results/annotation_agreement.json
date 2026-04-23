@@ -1,9 +1,9 @@
 {
-  "agreement_rate": 0.8275862068965517,
-  "n_agree": 24,
-  "n_total": 29,
+  "agreement_rate": 0.8666666666666667,
+  "n_agree": 26,
+  "n_total": 30,
   "n_errors": 0,
-  "cohens_kappa": 0.6551724137931034,
+  "cohens_kappa": 0.7333333333333334,
   "per_pair_type": {
     "c4_vs_bookcorpus": {
       "agree": 3,
@@ -11,14 +11,14 @@
       "rate": 1.0
     },
     "bookcorpus_vs_c4": {
-      "agree": 2,
-      "total": 2,
+      "agree": 3,
+      "total": 3,
       "rate": 1.0
     },
     "wikitext_vs_bookcorpus": {
-      "agree": 1,
+      "agree": 2,
       "total": 2,
-      "rate": 0.5
+      "rate": 1.0
     },
     "bookcorpus_vs_wikitext": {
       "agree": 4,

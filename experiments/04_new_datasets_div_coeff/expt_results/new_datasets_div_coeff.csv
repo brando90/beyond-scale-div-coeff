@@ -1,0 +1,2 @@
+dataset,hf_path,div_coeff,div_coeff_ci,num_batches,batch_size
+fineweb,HuggingFaceFW/fineweb,0.1336385443213261,0.0018931052268768619,600,512
