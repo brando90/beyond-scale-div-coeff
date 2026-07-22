@@ -1,10 +1,12 @@
 # TMLR Submission Cowork Prompt — Beyond Scale (Diversity Coefficient)
 
-**TLDR:** Copy the block below the line into a fresh Claude Code session run from the `beyond-scale-div-coeff` repo. It has the agent re-verify the built TMLR PDF (compile + double-blind + page/format checks), prepare the OpenReview metadata, and walk you through the OpenReview clicks (login and final submit are yours — agents can't authenticate to OpenReview).
+**TLDR:** Copy the block below the line into a fresh Claude Code / Cowork session (browser-driving enabled) run from the `beyond-scale-div-coeff` repo. It has the agent re-verify the built TMLR PDF, then **drive the entire OpenReview submission itself** — navigation, every form field, the PDF upload — stopping only for my login/2FA and the single final "Submit" click (per agents-config Trigger Rule 34).
 
 ---
 
-You are helping me submit a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview. The paper is already written, updated, mega-QA'd, and formatted for TMLR. Your job is to (1) re-verify the built artifact is submission-ready, (2) prepare everything I need to paste into OpenReview, and (3) guide me through the OpenReview steps. I will do the actual OpenReview login and final "Submit" click myself — you cannot authenticate to OpenReview, so do not try; prepare everything up to that point and hand me exact instructions.
+You are submitting a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview on my behalf. The paper is already written, updated, mega-QA'd, and formatted for TMLR. Per agents-config Trigger Rule 34 ("Cowork/browser-driving: go all the way to the end — Brando clicks only Submit"), **you drive the whole flow yourself**: navigation, filling every field, dropdowns, and the PDF upload (drive the file picker or set the file input directly — do NOT hand me a "click Choose File" step). Reserved for me and me only: entering login credentials / 2FA, and the single final "Submit" click. Batch any genuine open questions into ONE checkpoint right before that final click. If a specific step truly cannot be driven (e.g., an undriveable native OS dialog), say so explicitly as a blocker — never silently delegate a step you could do.
+
+Your job: (1) re-verify the built artifact is submission-ready, (2) fill the OpenReview submission form end-to-end, (3) stop at the final Submit for me.
 
 **Repo:** `~/beyond-scale-div-coeff` (branch `main`).
 **Submission artifact:** `paper_latex/TMLR_2026_BeyondScale/main.pdf` (source: `paper_latex/TMLR_2026_BeyondScale/main.tex` + shared `0*.tex`/`99_appendix.tex`).
@@ -31,7 +33,7 @@ Then confirm ALL of the following and report a checklist with pass/fail:
 
 If anything fails, fix only clear build issues (never numbers) and report; otherwise proceed.
 
-## Step 2 — Prepare the OpenReview submission metadata (produce this for me to paste)
+## Step 2 — Assemble the OpenReview submission metadata (you enter it yourself in Step 3)
 
 TMLR submission requires these fields entered in the OpenReview form (NOT in the PDF). Produce a clean, copy-pasteable block:
 - **Title:** Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data
@@ -43,18 +45,18 @@ TMLR submission requires these fields entered in the OpenReview form (NOT in the
 - **Conflicts of interest / domains:** remind me to enter author email domains (stanford.edu) for conflict detection.
 - **Checklist items TMLR asks at submission:** anonymization confirmed; code/data availability (point to the public GitHub repo but note it must be anonymized for review — if the repo is de-anonymizing, recommend an anonymized mirror or omitting the link during review).
 
-## Step 3 — Walk me through the OpenReview submission (I click; you instruct)
+## Step 3 — Drive the OpenReview submission (you fill everything; I provide login + final Submit)
 
-Give me exact, numbered steps:
-1. Go to https://openreview.net, log in, and open the TMLR venue page → "Submit".
-2. Which fields map to the metadata from Step 2, in order.
-3. Upload `paper_latex/TMLR_2026_BeyondScale/main.pdf`.
-4. Confirm the double-blind / anonymization checkbox and the TMLR acceptance-criteria acknowledgment.
-5. What to review on the confirmation screen before hitting Submit.
-6. After submit: note the OpenReview forum ID it returns, and remind me to (a) save it into `paper_latex/DMLR_2026_BeyondScale/00_dmlr_beyond_scale.tex` and the TMLR `\openreview` macro for camera-ready, and (b) update `experiments/09_tmlr_submission/decision.md` with the submission link + date.
+Open the browser and drive the flow yourself:
+1. Navigate to https://openreview.net and the TMLR venue's submission page. At the login screen, **pause and ask me to enter credentials / 2FA** (that one step is mine); once I'm in, continue.
+2. Click into the TMLR submission form and **fill every field yourself** from the Step 2 metadata — title, abstract, TL;DR, keywords, primary area, and add each author in order (prompt me only if an author's OpenReview profile can't be found).
+3. **Upload the PDF yourself** — drive the file picker or set the file `<input>` to `paper_latex/TMLR_2026_BeyondScale/main.pdf`. Do not ask me to choose the file.
+4. Tick the double-blind / anonymization confirmation and the TMLR acceptance-criteria acknowledgment.
+5. Bring me to the filled confirmation screen, summarize exactly what will be submitted (title, authors, abstract first line, filename, checkboxes), raise any remaining question as ONE checkpoint — then **stop and hand me the final "Submit" click.**
+6. After I submit: read back the OpenReview forum ID, then (a) write it into the TMLR `\openreview` macro (`paper_latex/TMLR_2026_BeyondScale/main.tex`) and the DMLR root for camera-ready, and (b) update `experiments/09_tmlr_submission/decision.md` with the submission link + date, and commit both.
 
 ## Constraints
-- Do NOT attempt to log into OpenReview, click submit, or automate the browser submission — I do that.
+- Drive the entire browser flow yourself (navigation, all fields, dropdowns, PDF upload, previews). Reserved for me: login credentials / 2FA, and the single final Submit click. Never hand me a "click Choose File" or "type this into that box" step you could do yourself (agents-config Trigger Rule 34).
 - Do NOT edit any numbers, claims, or results in the paper. Build-only fixes are allowed if the compile breaks.
-- If the repo is public and de-anonymizing, WARN me before I add any repo link to the submission.
-- Keep me in the loop: report the Step 1 checklist and the Step 2 metadata block, then wait for me to say go before writing the Step 3 walkthrough.
+- If the repo is public and de-anonymizing, WARN me before adding any repo link to the submission.
+- Go end-to-end without stopping to check in: run Steps 1→2→3 straight through, narrating what you're doing as you go (no "wait for my approval" pauses). The ONLY interruptions are (a) entering my login credentials / 2FA if the browser prompts for them, and (b) the single final Submit click, at which point you batch any genuine open questions into ONE checkpoint. Everything else — verifying the build, assembling metadata, filling every field, uploading the PDF — you just do.
