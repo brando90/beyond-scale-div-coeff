@@ -1,0 +1,7 @@
+llama2-pubmed-ckpt-2: n=5153 acc=0.0000 mean_logpcc=-19.074
+llama2-pubmed-ckpt-7: n=5153 acc=0.0000 mean_logpcc=-19.108
+llama2-uspto-ckpt-1: n=5153 acc=0.0000 mean_logpcc=-19.182
+llama2-uspto-pubmed-ckpt-3: n=5153 acc=0.0000 mean_logpcc=-19.173
+llama2-uspto-pubmed-ckpt-4: n=5153 acc=0.0000 mean_logpcc=-19.105
+llama2-uspto-pubmed-ckpt-5: n=5153 acc=0.0000 mean_logpcc=-19.149
+llama2-uspto-pubmed-ckpt-6: n=5153 acc=0.0000 mean_logpcc=-19.214
