@@ -1,0 +1,89 @@
+{
+ "S1_MED_mix_better_than_uspto": {
+  "wins": 5,
+  "n": 7,
+  "p_one_sided": 0.2265625,
+  "ce_advantage": {
+   "GPT2-1.5B": 0.553328,
+   "GPT2-117M": 0.261167,
+   "GPT2-204M": 0.0,
+   "GPT2-345M": 0.269971,
+   "GPT2-51M-1.31B": 0.340479,
+   "GPT2-51M-557M": 0.292483,
+   "LLaMA2-7B": -0.065661
+  }
+ },
+ "S1_MED_mix_better_than_pubmed": {
+  "wins": 4,
+  "n": 8,
+  "p_one_sided": 0.63671875,
+  "ce_advantage": {
+   "GPT2-1.5B": -0.061509,
+   "GPT2-117M": 0.011539,
+   "GPT2-204M": -0.357184,
+   "GPT2-345M": 0.004474,
+   "GPT2-51M-1.31B": 0.064424,
+   "GPT2-51M-557M": 0.046046,
+   "GPT2-810M": -0.608795,
+   "LLaMA2-7B": -0.016715
+  }
+ },
+ "S1_PATENT_mix_better_than_uspto": {
+  "wins": 4,
+  "n": 7,
+  "p_one_sided": 0.5,
+  "ce_advantage": {
+   "GPT2-1.5B": 0.282617,
+   "GPT2-117M": -0.01313,
+   "GPT2-204M": 0.0,
+   "GPT2-345M": 0.004868,
+   "GPT2-51M-1.31B": 0.07756,
+   "GPT2-51M-557M": 0.027152,
+   "LLaMA2-7B": -0.024708
+  }
+ },
+ "S1_PATENT_mix_better_than_pubmed": {
+  "wins": 8,
+  "n": 8,
+  "p_one_sided": 0.00390625,
+  "ce_advantage": {
+   "GPT2-1.5B": 0.856839,
+   "GPT2-117M": 0.845671,
+   "GPT2-204M": 0.744035,
+   "GPT2-345M": 0.768136,
+   "GPT2-51M-1.31B": 1.052642,
+   "GPT2-51M-557M": 0.988544,
+   "GPT2-810M": 0.504721,
+   "LLaMA2-7B": 0.013077
+  }
+ },
+ "S1_NEITHER_mix_better_than_uspto": {
+  "wins": 5,
+  "n": 7,
+  "p_one_sided": 0.2265625,
+  "ce_advantage": {
+   "GPT2-1.5B": 0.393334,
+   "GPT2-117M": 0.137727,
+   "GPT2-204M": 0.0,
+   "GPT2-345M": 0.14696,
+   "GPT2-51M-1.31B": 0.204979,
+   "GPT2-51M-557M": 0.178624,
+   "LLaMA2-7B": -0.04776
+  }
+ },
+ "S1_NEITHER_mix_better_than_pubmed": {
+  "wins": 6,
+  "n": 8,
+  "p_one_sided": 0.14453125,
+  "ce_advantage": {
+   "GPT2-1.5B": 0.115701,
+   "GPT2-117M": 0.164414,
+   "GPT2-204M": -0.1417,
+   "GPT2-345M": 0.146498,
+   "GPT2-51M-1.31B": 0.244826,
+   "GPT2-51M-557M": 0.224833,
+   "GPT2-810M": -0.331585,
+   "LLaMA2-7B": 0.007482
+  }
+ }
+}

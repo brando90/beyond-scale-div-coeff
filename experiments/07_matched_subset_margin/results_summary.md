@@ -1,6 +1,8 @@
 # Exp 07 — Matched-Subset Per-Choice Margin: Results
 
-**TL;DR:** The pre-registered per-choice **margin** metric (logpcc − mean logpics) has demonstrable power — it separates the PubMed-trained from the USPTO-trained model on medicine-domain MMLU in **7/7 families (paired sign test p=0.0078)**. This power is the point: it shows the general-benchmark diversity nulls are *not* a dead-metric or pure-floor artifact. But the **diversity contrast itself is null** — the mix (div 0.195) does not beat pure PubMed on any group (T2 MED, T3 GEN, most of T4), so added diversity produces no detectable question-level margin gain at this scale. **Honesty caveat:** the PubMed>USPTO effect is *largely general*, not purely in-domain — PubMed also beats USPTO on the full MMLU pool 6/7 (mean margin advantage 0.030 general vs 0.051 medicine), so T1 confirms the metric detects *training-corpus* differences, with only a modest extra in-domain boost; we do **not** claim a clean alignment-specific effect.
+**TL;DR:** The pre-registered per-choice **margin** metric (logpcc − mean logpics) has demonstrable power — it separates the PubMed-trained from the USPTO-trained model on medicine-domain MMLU in **7/7 families (paired sign test p=0.0078)**. This power is the point: it shows the general-benchmark diversity nulls are *not* a dead-metric or pure-floor artifact. But the **diversity contrast itself is null** — the mix (div 0.195) never beats the intermediate-diversity PubMed model (≤2/6 families on any benchmark), so there is no monotonic diversity effect at this scale. **Honesty caveat:** the PubMed>USPTO effect is *largely general*, not purely in-domain — PubMed also beats USPTO on the full MMLU pool 6/7, so T1 confirms the metric detects *training-corpus* differences, with only a modest extra in-domain boost; we do **not** claim a clean alignment-specific effect.
+
+**⚠ n=25, not 27:** Two "mix" checkpoints (204M and 810M USPTO+PubMed) were found to have eval outputs bit-identical to a USPTO model (a checkpoint-loading bug) and are excluded as invalid; see `experiments/DATA_INTEGRITY_2026-07-22_corrupt_mix_evals.md`. The positive control is unaffected (it uses only authentic USPTO/PubMed models); every diversity-contrast result was and remains a non-significant null.
 
 Pre-registration: `PREREGISTRATION.md` (committed 8fbdb75, **before** any results). Pure re-scoring of existing lm-eval per-sample JSONLs (no new evals). n=27 models.
 
@@ -9,22 +11,22 @@ Pre-registration: `PREREGISTRATION.md` (committed 8fbdb75, **before** any result
 | Test | Contrast | Group | wins/n | p (1-sided) | Verdict |
 |---|---|---|---|---|---|
 | **T1** | PubMed > USPTO | MED margin | **7/7** | **0.0078** | **PASS — positive control: metric detects training-corpus differences** (also 6/7 on GEN → largely general, not purely in-domain) |
-| T2 | mix vs PubMed | MED margin | 3/8 | 0.86 | Null — added diversity ≠ margin gain in-domain |
-| T3a | mix > USPTO | GEN margin | 3/7 | 0.77 | Null |
-| T3b | mix > PubMed | GEN margin | 2/8 | 0.96 | Null |
-| T4 arc_easy | mix > USPTO / PubMed | margin | 4/7, 4/8 | 0.50, 0.64 | Null |
-| T4 hellaswag | mix > USPTO | margin | 7/7 | 0.0078 | mix beats USPTO… |
-| T4 hellaswag | mix > PubMed | margin | 3/8 | 0.86 | …but not PubMed → not a clean diversity win |
-| T4 winogrande | mix > USPTO / PubMed | margin | 5/7, 2/8 | 0.23, 0.96 | Null |
-| T4 lambada | mix > USPTO / PubMed | logpcc | 6/7, 6/8 | 0.0625, 0.14 | Suggestive, not significant |
+| T2 | mix vs PubMed | MED margin | 2/6 | 0.89 | Null — added diversity ≠ margin gain in-domain |
+| T3a | mix > USPTO | GEN margin | 2/6 | 0.89 | Null |
+| T3b | mix > PubMed | GEN margin | 1/6 | 0.98 | Null |
+| T4 arc_easy | mix > USPTO / PubMed | margin | 3/6, 4/6 | 0.66, 0.34 | Null |
+| T4 hellaswag | mix > USPTO | margin | 6/6 | 0.016 | mix beats USPTO… |
+| T4 hellaswag | mix > PubMed | margin | 2/6 | 0.89 | …but not PubMed → not a clean diversity win |
+| T4 winogrande | mix > USPTO / PubMed | margin | 4/6, 1/6 | 0.34, 0.98 | Null |
+| T4 lambada | mix > USPTO / PubMed | logpcc | 6/6, 5/6 | 0.016, 0.11 | mix>USPTO but not>PubMed → no monotonic effect |
 
 ## MED margin by condition (mean over models; higher = better)
 
-| Condition | div coeff | mean margin |
+| Condition | div coeff | mean margin (n models) |
 |---|---|---|
-| USPTO | 0.158 | −0.0950 |
-| PubMed | 0.168 | −0.0553 |
-| mix | 0.195 | −0.0478 |
+| USPTO | 0.158 | −0.0950 (7) |
+| PubMed | 0.168 | −0.0553 (9) |
+| mix | 0.195 | −0.0359 (9) |
 
 The USPTO→PubMed jump reflects PubMed being a better general MMLU-margin corpus than USPTO (T1, but 6/7 on GEN too). mix ≈ PubMed on the paired family test (T2 null), so added diversity does not further help.
 

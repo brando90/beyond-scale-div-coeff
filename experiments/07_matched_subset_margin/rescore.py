@@ -50,6 +50,21 @@ def family_of(name: str) -> str:
     return f"GPT2-{size}" + (f"-{toks}" if size == "51M" and toks else "")
 
 
+# Known-corrupted eval outputs: the two "mix" models were evaluated with the
+# wrong checkpoint loaded — their per-sample outputs are bit-identical to a USPTO
+# model across every benchmark AND MMLU (204M-mix == 204M-USPTO; 810M-mix ==
+# 117M-USPTO; model_args name the right model but the data is a duplicate).
+# Excluded as invalid. Verified 2026-07-22; see results_summary.md and EXPERIMENT_STATE.md.
+CORRUPT = {
+    "gpt2-204m-usptoandpubmedabs", "gpt2_204m_usptoandpubmedabs",
+    "gpt2-810m-2.2b-usptoandpubmedabs", "gpt2_810m_2.2b_usptoandpubmedabs",
+}
+
+
+def is_corrupt(name):
+    return name.strip().lower() in CORRUPT
+
+
 def read_rows(path):
     with open(path) as f:
         for line in f:
@@ -125,6 +140,8 @@ def main():
         name = os.path.basename(mdir.rstrip("/"))
         if name.endswith("_downstream"):
             continue
+        if is_corrupt(name):
+            continue
         for f in glob.glob(os.path.join(mdir, "mmlu_*", "*", "samples_*.jsonl")):
             subj = re.search(r"mmlu_([a-z_]+)/", f).group(1)
             for row in read_rows(f):
@@ -175,6 +192,8 @@ def main():
     lamb_audit = []
     for mdir in sorted(glob.glob(os.path.join(args.eval_root, "*_downstream/"))):
         name = os.path.basename(mdir.rstrip("/")).replace("_downstream", "")
+        if is_corrupt(name):
+            continue
         for f in glob.glob(os.path.join(mdir, "*", "samples_*.jsonl")):
             bench = re.search(r"samples_([a-z_]+?)_\d{4}", os.path.basename(f)).group(1)
             for row in read_rows(f):

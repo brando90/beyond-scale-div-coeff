@@ -590,23 +590,23 @@ GPT2-204M & 1.31B (1024 L) & USPTO  & 6.16 (473.4) & 5.40 (221.4) \\
 To complement the cross-entropy evaluations in Figure~\ref{fig:div_vs_val_ce} and the MMLU results in Section~\ref{sec:confounding}, we evaluate all available checkpoints on four additional standard benchmarks.
 
 \textbf{Experiments:}
-We evaluate 27 models (GPT-2 families from 51M to 1.5B parameters and LLaMA-2 7B checkpoints, each pre-trained from scratch on USPTO, PubMed Abstracts, or USPTO+PubMed with diversity coefficients 0.158, 0.168, and 0.195 respectively) on ARC-Easy, HellaSwag, WinoGrande, and LAMBADA using the EleutherAI lm-evaluation-harness.
+We evaluate 25 models (GPT-2 families from 51M to 1.5B parameters and LLaMA-2 7B checkpoints, each pre-trained from scratch on USPTO, PubMed Abstracts, or USPTO+PubMed with diversity coefficients 0.158, 0.168, and 0.195 respectively) on ARC-Easy, HellaSwag, WinoGrande, and LAMBADA using the EleutherAI lm-evaluation-harness.\footnote{Two of the original 27 checkpoints (the 204M and 810M USPTO+PubMed models) were excluded after a pre-submission audit found their eval outputs to be bit-identical duplicates of a USPTO model across every benchmark and MMLU subject---a checkpoint-loading error affecting only those two runs. Excluding them leaves every correlation reported here a non-significant null, as it was before exclusion; details in the released \texttt{experiments/} data-integrity note.}
 The reported metric is \emph{accuracy}: length-normalized accuracy (\texttt{acc\_norm}) for ARC-Easy and HellaSwag, and standard accuracy (\texttt{acc}) for WinoGrande and LAMBADA.
 
 \begin{table}[h!]
 \centering
 \caption{\textbf{Accuracy remains low on four downstream benchmarks, and none shows a significant diversity correlation.}
-Mean accuracy is computed over all 27 models; no benchmark shows a statistically significant Spearman correlation between the training-data diversity coefficient and accuracy.}
+Mean accuracy is computed over all 25 models; no benchmark shows a statistically significant Spearman correlation between the training-data diversity coefficient and accuracy.}
 \vskip 0.1in
 \begin{small}
 \begin{tabular}{lcccc}
 \toprule
 Benchmark & Reference floor & Mean acc.\ (min--max) & Spearman $\rho$ & $p$-value \\
 \midrule
-ARC-Easy & 0.25 & 0.320 (0.255--0.366) & $-0.16$ & 0.41 \\
-HellaSwag & 0.25 & 0.272 (0.262--0.286) & $-0.14$ & 0.49 \\
-WinoGrande & 0.50 & 0.504 (0.484--0.522) & $0.10$ & 0.62 \\
-LAMBADA & $\approx 0$ & 0.043 (0.000--0.095) & $-0.08$ & 0.68 \\
+ARC-Easy & 0.25 & 0.318 (0.255--0.366) & $-0.27$ & 0.19 \\
+HellaSwag & 0.25 & 0.272 (0.262--0.286) & $-0.24$ & 0.25 \\
+WinoGrande & 0.50 & 0.503 (0.484--0.522) & $0.02$ & 0.94 \\
+LAMBADA & $\approx 0$ & 0.039 (0.000--0.095) & $-0.23$ & 0.26 \\
 \bottomrule
 \end{tabular}
 \end{small}
@@ -614,13 +614,20 @@ LAMBADA & $\approx 0$ & 0.043 (0.000--0.095) & $-0.08$ & 0.68 \\
 \end{table}
 
 \textbf{Results:}
-Table~\ref{tab:downstream_benchmarks} shows low absolute accuracy: ARC-Easy averages 0.320 against a 0.25 reference floor, HellaSwag 0.272 against 0.25, WinoGrande 0.504 against 0.50, and LAMBADA 0.043 near its open-vocabulary floor.
-No benchmark shows a significant correlation with the diversity coefficient ($p > 0.4$ for all), so these accuracy results do not support a diversity--performance association in this setting.
+Table~\ref{tab:downstream_benchmarks} shows low absolute accuracy: ARC-Easy averages 0.318 against a 0.25 reference floor, HellaSwag 0.272 against 0.25, WinoGrande 0.503 against 0.50, and LAMBADA 0.039 near its open-vocabulary floor.
+No benchmark shows a significant correlation with the diversity coefficient ($p > 0.18$ for all), so these accuracy results do not support a diversity--performance association in this setting.
 The low scores and narrow diversity range are consistent with a floor effect, but these data cannot distinguish a floor effect from the absence of a relationship at this scale.
 A complementary methodological explanation is that accuracy \emph{discretizes} the model's continuous per-choice log-likelihoods through an argmax, and this discretization is known to destroy the smooth capability signal that log-likelihood-based metrics retain at small scale \citep{schaeffer2024elusive}; our cross-entropy evaluation is precisely such a continuous metric.
-% TODO(internal-review): EXPERIMENT_STATE.md §6 flags one duplicated eval-results row in mmlu_results.csv (gpt2-810M-2.2B-USPTOAndPubMedAbs identical to gpt2-117M-2.2B-USPTO, likely a results-dir casing collision). Sensitivity check 2026-07-21: dropping the suspect rows leaves both correlations null (log_p_correct rho in [-0.22,-0.17], p>=0.27; margin |rho|<=0.05, p>=0.83 across n=27/25/23 variants), so the claim below is robust — but fix the CSV before camera-ready and update the two rho/p values if they shift.
-Discretization is not the whole story, however: on MMLU we computed continuous per-choice metrics directly across the same 27 models---mean $\log P(\mathrm{correct\ choice})$ and the margin $\log P(\mathrm{correct}) - \overline{\log P}(\mathrm{incorrect})$---and find no significant Spearman correlation with the diversity coefficient for either metric (mean $\log P$: $\rho=-0.17$, $p=0.39$; margin: $\rho=0.04$, $p=0.83$).
-At these model scales and token budgets, the benefit of pre-training data diversity is therefore detectable in corpus-level cross-entropy but not in question-level benchmark metrics, discrete or continuous; extending the per-choice log-likelihood analysis to the four benchmarks above remains future work.
+Discretization is not the whole story, however: on MMLU we computed continuous per-choice metrics directly across the same 25 models---mean $\log P(\mathrm{correct\ choice})$ and the margin $\log P(\mathrm{correct}) - \overline{\log P}(\mathrm{incorrect})$ (recomputed from the raw per-sample log-likelihoods over all 57 subjects)---and find no significant Spearman correlation with the diversity coefficient for either metric (mean $\log P$: $\rho=-0.25$, $p=0.24$; margin: $\rho=0.10$, $p=0.62$).
+
+\paragraph{The continuous metric is not powerless: a positive control.}
+A natural worry is that the continuous margin simply cannot detect \emph{any} training-data effect at this scale, in which case the null above would be uninformative.
+It can. As a pre-registered positive control, we compare the margin of the PubMed-trained versus the USPTO-trained model within each model family on the medicine-related MMLU subjects (clinical knowledge, college medicine, professional medicine, college biology, medical genetics, anatomy).
+The PubMed-trained model has the higher margin in \textbf{7 of 7 families} (exact paired sign test $p = 0.0078$), and the effect persists on the full 57-subject pool (6 of 7 families).
+The margin therefore reliably distinguishes models by their training corpus; the absence of a \emph{diversity} effect is a substantive statement about scale, not a dead instrument.
+Applying the same pre-registered per-family analysis to the diversity contrast (the mix, $\mathrm{div}=0.195$, versus its components) yields no consistent effect: the mix significantly beats USPTO on the HellaSwag margin and the LAMBADA log-likelihood (6/6 families, $p=0.016$ each) but does not significantly beat the intermediate-diversity PubMed model on any benchmark (at most 5/6 families, on LAMBADA, $p=0.11$), while the ARC-Easy and WinoGrande contrasts against USPTO are null---so no benchmark exhibits a significant graded USPTO $<$ PubMed $<$ mix ordering in the diversity coefficient (details in \texttt{experiments/07\_matched\_subset\_margin}).
+
+At these model scales and token budgets, the benefit of pre-training data diversity is therefore detectable in corpus-level cross-entropy but not in question-level benchmark metrics, discrete or continuous.
 FineWeb \citep{penedo2024fineweb} and DataComp-LM \citep{li2024datacomp} likewise select benchmark subsets designed to provide reliable signal in small-scale data-ablation experiments.
 Our main diversity$\to$performance evidence therefore rests on the cross-entropy results in Figure~\ref{fig:div_vs_val_ce}; the four accuracy benchmarks reported here provide no supporting evidence.
 Testing whether larger training budgets or early-signal benchmark subsets reveal an accuracy relationship remains future work.
