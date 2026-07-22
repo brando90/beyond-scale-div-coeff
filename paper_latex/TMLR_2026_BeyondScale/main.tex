@@ -1,0 +1,115 @@
+% !TEX root = main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Beyond Scale: The Diversity Coefficient as a Data Quality Metric
+%  TMLR submission (Transactions on Machine Learning Research)
+%
+%  Content is shared with paper_latex/DMLR_2026_BeyondScale/ (same modular
+%  section files); this root retargets it to the TMLR style (tmlr.sty).
+%
+%  Style:   tmlr.sty  (double-blind submission mode; use [accepted] for camera-ready)
+%  Bib:     dmlr_bib_refs.bib  (tmlr.bst)
+%  Figures: plots/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article}
+\usepackage{tmlr}
+% For the camera-ready, instead use: \usepackage[accepted]{tmlr}
+% For a de-anonymized preprint, instead use: \usepackage[preprint]{tmlr}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% algorithmic.sty defines \AND (logical-and) at each \begin{algorithmic}; tmlr.sty
+% defines \AND as the author separator (needed by \maketitle). They clash only in
+% the body, so we undefine \AND right after \maketitle (below), leaving the author
+% block intact and letting each algorithmic environment define its own \AND.
+% \acks is a dmlr2e macro absent from tmlr.sty. Under double-blind TMLR
+% submission, acknowledgments are omitted (they identify authors); restore for
+% the camera-ready by redefining \acks to emit a \subsubsection*{Acknowledgments}.
+\newcommand{\acks}[1]{}
+
+\title{Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data}
+
+% Authors must not appear in the submitted version. They are hidden by tmlr.sty
+% as long as the package is used without the [accepted] or [preprint] options.
+\author{%
+Brando Miranda\thanks{Correspondence to: \texttt{brando9@stanford.edu}\,\;and\;\texttt{sanmi@stanford.edu}}\space\space$^{1}$
+\And
+Alycia Lee$^{1}$
+\And
+Sudharsan Sundar$^{1}$
+\AND
+Allison Casasola$^{1}$
+\And
+Rylan Schaeffer$^{1}$
+\And
+Elyas Obadd$^{1}$
+\AND
+Sanmi Koyejo$^{1,*}$
+\\[0.8em]
+$^{1}$Department of Computer Science, Stanford University, Stanford, CA 94305, USA\\
+\texttt{\{brando9, alylee15, sjsundar\}@stanford.edu}\\
+\texttt{\{allyc, rschaef, eobbad, sanmi\}@stanford.edu}
+}
+
+\def\month{07}  % Insert correct month for camera-ready version
+\def\year{2026} % Insert correct year for camera-ready version
+\def\openreview{\url{https://openreview.net/forum?id=XXXX}} % Insert correct link for camera-ready version
+
+\begin{document}
+
+\maketitle
+% Release tmlr's author-separator \AND now that \maketitle is done, so the
+% algorithmic environments in the body can define their own logical-and \AND.
+\makeatletter\let\AND\@undefined\makeatother
+
+\begin{abstract}
+Current trends in pre-training Large Language Models (LLMs) primarily focus on the scaling of model and dataset size.
+While the \textit{quality} of pre-training data is considered an important factor for training powerful LLMs, it remains a nebulous concept that has not been rigorously characterized.
+To this end, we propose a formalization of one key aspect of data quality -- measuring the \textit{variability} of natural language data -- specifically via a measure we call the diversity coefficient.
+Our empirical analysis shows that the proposed diversity coefficient aligns with the intuitive properties of diversity and variability,
+e.g., it increases as the number of latent concepts increases.
+Then, we measure the diversity coefficient of publicly available pre-training datasets and demonstrate that their formal diversity is high compared to theoretical lower and upper bounds.
+Finally, we conduct a comprehensive set of controlled \textit{interventional} experiments with GPT-2 and LLaMAv2 that demonstrate the diversity coefficient of pre-training data characterizes useful aspects of downstream model evaluation performance---totaling 44 models of various sizes (51M to 7B parameters).
+We conclude that our formal notion of diversity is an important aspect of data quality that captures variability and causally leads to improved evaluation performance.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main sections (shared modular files)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{01_introduction}
+
+\input{02_method}
+
+\input{03_experiments}
+
+\input{04_related_work}
+
+\input{05_discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Broader Impact Statement}
+This work proposes the diversity coefficient as a quantitative metric for data quality in LLM pre-training.
+By making data diversity formally measurable, we enable researchers and practitioners to design more principled and transparent data curation pipelines.
+A potential concern is that diversity metrics could be gamed or misused to justify data collection practices that raise privacy or copyright issues; we encourage responsible use alongside appropriate data governance.
+All datasets used in this study are publicly available.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{98_acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{tmlr}
+\bibliography{dmlr_bib_refs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\input{99_appendix}
+
+\end{document}
