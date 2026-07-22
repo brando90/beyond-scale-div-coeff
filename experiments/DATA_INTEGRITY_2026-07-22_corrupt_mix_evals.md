@@ -40,3 +40,10 @@ Exp 08 loads each model fresh from HuggingFace and computes cross-entropy direct
 - `experiments/07_matched_subset_margin/rescore.py`: added `CORRUPT` exclusion set (both naming styles), skipped in both the MMLU and downstream loops; re-ran → clean artifacts at n=25.
 - Paper (`paper_latex/DMLR_2026_BeyondScale/`): Table `tab:downstream_benchmarks`, the MMLU continuous-metric sentence, the exp07 positive-control paragraph, and the Discussion limitation updated to n=25 with a footnote pointing here.
 - Camera-ready TODO: re-evaluate all 27 checkpoints under one pinned lm-eval to restore n=27 with correct mix data.
+
+## Addendum (2026-07-23): ckpt-7 label conflict resolved — PubMed (0.168) is correct
+
+The remaining open item from EXPERIMENT_STATE.md §3 (is `llama2-pubmed-ckpt-7` PubMed 0.168, as all code maps it, or USPTO+PubMed 0.195, as the checkpoint name `LLama2_Uspto_Pubmed_Ckpt_7` implies?) is adjudicated: **the code label is correct; the checkpoint name is the misnomer.**
+
+Provenance: `experiments/2024/27_28_09_2024_ckpts_for_mmlu_evals.md:47-50` pairs ckpt_7's training run and artifact directly at checkpoint-push time:
+W&B run `https://wandb.ai/brando/beyond-scale/runs/fj5xd2kj`, results dir `/lfs/ampere9/0/brando9/data/results_2024-m01-d29-t16h_00m_55s`, annotated `pubmed <-> 0.168`. The canonical name→div dict written the same week (`experiments/2024/01_10_2024_compiling_list_dict_name_2_div.md:11`) agrees: `"LLama2_Uspto_Pubmed_Ckpt_7": 0.168`. Every downstream script inherited 0.168, so exp00/03/07 groupings (ckpt-7 in the PubMed condition) are correct and no reported number changes.
