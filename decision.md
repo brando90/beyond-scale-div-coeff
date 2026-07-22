@@ -32,7 +32,11 @@ A candidate strengthening sentence ("margins are uniformly negative → below ca
 
 The checkpoint *name* (`LLama2_Uspto_Pubmed_Ckpt_7`) is a misnomer; training-artifact provenance (W&B run `fj5xd2kj` + results dir, annotated `pubmed <-> 0.168` at push time) and the canonical 2024 dict agree with every script. exp00/03/07 groupings are correct; no number changes. Full addendum: `experiments/DATA_INTEGRITY_2026-07-22_corrupt_mix_evals.md`.
 
-## D5 — Open items and owners
+## D5 — Title: keep "…Metric for Variability in Natural Language Data" (keep "variability")
+
+History (receipts in `experiments/01_addressing_openreviews/deep_research.md:603`): the v1 title — "…Demonstrates LLMs are Pre-trained on Formally Diverse Data" — embedded the conclusion in the title; after the ICLR 2024 reject flagged unvalidated claims, arXiv v4 (the DMLR@ICLR 2024 accepted version) renamed to the current tool+quantity form, which then carried through ICLR 2025 and Google Scholar. Keep it for TMLR because: (1) it is the paper's established online identity since early 2024 — a third title fragments the citation record and breaks the reviewer-googles-arXiv match; (2) "variability" precisely names what Task2Vec-embedding dispersion measures, while "Diversity Coefficient" survives as the metric's proper name — a title with no claim in it, consistent with the de-overclaiming program and the TMLR claims-match-evidence bar; (3) reinstating a diversity-forward or claim-bearing title reopens the "is dispersion really *diversity*?" fight the current wording pre-empts. Cost: mild "diversity…for variability" tension, resolved by the abstract's first sentences. Camera-ready retitling remains separable and low-stakes if ever desired.
+
+## D6 — Open items and owners
 
 | Item | Owner | Status |
 |---|---|---|
