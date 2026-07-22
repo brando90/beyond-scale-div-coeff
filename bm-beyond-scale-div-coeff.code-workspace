@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "../agents-config"
+		},
+		{
+			"path": "../ultimate-utils"
+		},
+		{
+			"path": "../brandomiranda"
 		}
 	],
 	"settings": {}

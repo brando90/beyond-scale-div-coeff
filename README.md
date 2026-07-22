@@ -1,5 +1,7 @@
 # Beyond Scale: the Diversity Coefficient as a Data Quality Metric for Natural Language Datasets
 
+> **This is the master repo.** `brando90/beyond-scale-div-coeff` is the standalone (non-fork), actively maintained home of the diversity-coefficient code — it carries the full commit history plus the most recent experiment results. Related repos: [`alycialee/beyond-scale-language-data-diversity`](https://github.com/alycialee/beyond-scale-language-data-diversity) is the original root repo, and [`brando90/beyond-scale-language-data-diversity`](https://github.com/brando90/beyond-scale-language-data-diversity) is a fork of it (kept mainly for the DMLR 2026 paper LaTeX build files). New development happens here.
+
 This repository provides the official implementation of the Task2Vec Diversity Coefficient for computing natural language data diversity from the following paper:
 
 **Beyond Scale: the Diversity Coefficient as a Data Quality Metric Demonstrates LLMs are Pre-trained on Formally Diverse Data**.
