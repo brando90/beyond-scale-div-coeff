@@ -1,4 +1,4 @@
-# Beyond Scale: the Diversity Coefficient as a Data Quality Metric for Natural Language Datasets
+# Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data
 
 > **This is the master repo.** `brando90/beyond-scale-div-coeff` is the standalone (non-fork), actively maintained home of the diversity-coefficient code — it carries the full commit history plus the most recent experiment results. All other related repos are outdated: [`alycialee/beyond-scale-language-data-diversity`](https://github.com/alycialee/beyond-scale-language-data-diversity) is the original root repo, [`brando90/beyond-scale-language-data-diversity`](https://github.com/brando90/beyond-scale-language-data-diversity) is a fork of it (kept mainly for the DMLR 2026 paper LaTeX build files), and [`SudharsanSundar/beyond-scale-SS-fork`](https://github.com/SudharsanSundar/beyond-scale-SS-fork) is a collaborator fork. New development happens here only.
 
@@ -12,18 +12,17 @@ Paper: https://arxiv.org/abs/2306.13840
 This repository also contains code for generating GINC datasets and computing the Diversity Coefficient of those datasets (see `ginc/`).
 
 ## Getting Started
-`diversity/` contains the Task2Vec diversity coefficient computation for natural language data. [**See Quick-start**](https://github.com/alycialee/beyond-scale-language-data-diversity/blob/main/src/diversity/README.md#quick-start)
-) for a tutorial of computing the diversity coefficient for a language dataset.** Run `diversity/runner.sh` to compute Task2Vec embeddings and diversity coefficient for c4, WikiText-103, and The Pile.
+`diversity/` contains the Task2Vec diversity coefficient computation for natural language data. [**See Quick-start**](src/diversity/README.md#quick-start) for a tutorial on computing the diversity coefficient for a language dataset. Run `diversity/runner.sh` to compute Task2Vec embeddings and the diversity coefficient for C4, WikiText-103, and The Pile.
 
 When cloning your main repository in the future, you will need to initialize the submodules as well by using:
 ```bash
 cd ~
-git clone --recurse-submodules git@github.com:brando90/beyond-scale-language-data-diversity.git
+git clone --recurse-submodules https://github.com/brando90/beyond-scale-div-coeff.git
 ```
-If you forget to use --recurse-submodules, you can still initialize the: 
+If you forget to use `--recurse-submodules`, you can still initialize the submodules:
 ```bash
-git clone https://github.com/<user>/beyond-scale-language-data-diversity.git
-cd ~/beyond-scale-language-data-diversity
+git clone https://github.com/brando90/beyond-scale-div-coeff.git
+cd ~/beyond-scale-div-coeff
 git submodule update --init --recursive
 ```
 Note: to push the changes to submodule cd there and do git cmds there.
@@ -41,7 +40,7 @@ Create conda env:
 conda create -n beyond_scale_div_coeff python=3.11 -y
 # conda activatexport HOME=/data/
 conda activate beyond_scale_div_coeff
-pip install -e ~/beyond-scale-language-data-diversity
+pip install -e ~/beyond-scale-div-coeff
 # conda remove --name beyond_scale_diiv_coeff --all
 ```
 
@@ -55,7 +54,7 @@ python3.11 -m venv ~/.virtualenvs/beyond_scale_div_coeff
 source ~/.virtualenvs/beyond_scale_div_coeff/bin/activate
 pip install --upgrade pip
 which python
-pip install -e ~/beyond-scale-language-data-diversity
+pip install -e ~/beyond-scale-div-coeff
 ```
 
 ## Acknowledgements
@@ -67,7 +66,7 @@ We thank [Rylan Schaeffer](http://rylanschaeffer.github.io/) for his contributio
 If you found this repo useful, please cite
 ```
 @misc{miranda2025scalediversitycoefficientdata,
-      title={Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data}, 
+      title={Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data},
       author={Brando Miranda and Alycia Lee and Sudharsan Sundar and Allison Casasola and Rylan Schaeffer and Elyas Obbad and Sanmi Koyejo},
       year={2025},
       eprint={2306.13840},
