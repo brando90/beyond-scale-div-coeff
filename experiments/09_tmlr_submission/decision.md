@@ -30,3 +30,12 @@
 - **Artifact:** `paper_latex/TMLR_2026_BeyondScale/main.pdf` — TMLR style, double-blind (renders "Anonymous authors / Paper under double-blind review"), acknowledgments suppressed, 35 pp, builds clean (pdflatex→bibtex→pdflatex×2, 0 undefined refs/citations).
 - **Camera-ready TODOs:** switch `\usepackage{tmlr}` → `\usepackage[accepted]{tmlr}`; restore `\acks` (redefine to emit `\subsubsection*{Acknowledgments}`) and de-anonymize; fill `\month`/`\year`/`\openreview`; optionally re-evaluate all 27 checkpoints to restore n=27 with correct mix data.
 - **Submission runbook:** `experiments/09_tmlr_submission/tmlr_submission_cowork_prompt.md`.
+
+## Submitted (2026-07-22)
+
+- **OpenReview forum:** https://openreview.net/forum?id=3ndFgcqAic — **submission #10746**, Regular submission (main content ~10 pp), CC BY 4.0. Agent-driven Cowork flow per Trigger Rule 34; Brando clicked the final Submit.
+- **Uploaded artifact:** `paper_latex/TMLR_2026_BeyondScale/main.pdf`, md5 `de8ae35d7aea7c3d0f2573f8955eb4a5` (post-Future-Work-cut build) — re-verified at upload: 35 pp, anonymous, 0 `??`/undefined refs, acks suppressed, empty PDF Author metadata, integrity numbers intact (25 models; 44 runs; 7/7 positive control p=0.0078; MMLU ρ −0.25/0.10); clean rebuild reproduces it text-identically.
+- **Final author order** (after Brando's post-submit OpenReview edit, synced in `bff9029`): Miranda, Lee, Sundar, Obbad, Casasola, Schaeffer, Koyejo.
+- **COI (AE-visible):** none beyond profiles; funding NSF/ONR/Sloan/Stanford HAI disclosed. **Human subjects:** N/A.
+- **No code link during review** — public `brando90/beyond-scale-div-coeff` is de-anonymizing; add repo or anonymized mirror at camera-ready.
+- `\openreview` macro filled in TMLR `main.tex` (blind mode: not rendered, no rebuild needed); DMLR root header carries the forum link.
