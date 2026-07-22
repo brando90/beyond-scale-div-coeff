@@ -1009,16 +1009,6 @@ We observe in Table~\ref{tab:div_vs_ppl} that increased diversity leads to decre
 Hence, we conjecture pre-training on higher diversity data improves test performance on diverse tasks, though more extensive experiments are needed to know so conclusively.
 % However, this type of experiment is challenging because pre-training an LLM at scale is expensive---more than 10M dollars \citep{ruiz2023train}.
 
-\subsection{Future Work}
-Our future research will explore the potential of the Task2Vec distance function for pre-training dataset curation. 
-Given that the objective of pre-training is to maximize downstream task performance, we define high-quality training data as data that facilitates the best achievable performance on such tasks.
-We anticipate that higher diversity in the dataset will increase the likelihood of achieving this objective.  
-The rationale is that a higher data diversity implies a broader coverage of tasks or batches, thereby increasing the probability of training the model on tasks or data representations that are relevant to evaluation tasks.
-Our focus will be to leverage Task2Vec to assess the similarity between individual data points, batches, or datasets to a target task. 
-This assessment will enable us to curate the training data by selectively removing tasks that resemble random, noisy, or irrelevant sequences, which may adversely affect downstream performance.
-
-
-
 
 % \section{Impact Statement}
 % % DEFAULT: This paper presents work whose goal is to advance the field of Machine Learning. There are many potential societal consequences of our work, none which we feel must be specifically highlighted here.

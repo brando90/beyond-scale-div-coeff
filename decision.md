@@ -12,7 +12,7 @@
 3. **Revealed preference.** Brando returned to TMLR three separate times after the DMLR default was set ("I thought div coeff was solid enough to submit to tmlr"); the DMLR default was justified by quality doubt + reformat cost, both now gone (the port took ~1 hour and is done).
 4. **The pre-committed decision rule** ("default DMLR; revisit only on a strong matched-subset positive") was tied to experiment outcomes; what actually changed is the rigor package and the persistent preference. Sticking to a commitment device whose premises expired is not discipline, it is inertia.
 
-**Cost accounting:** the port is a second root file sharing every section file with the DMLR build (single source of truth; only the abstract is mirrored, flagged with SYNC comments). tmlr.sty auto-anonymizes: page 1 renders "Anonymous authors — Paper under double-blind review"; acknowledgments are omitted from the submission build.
+**Cost accounting:** two parallel ports were built (this session's shared-root variant and the other session's dedicated `paper_latex/TMLR_2026_BeyondScale/` with copied section files); consolidated 2026-07-23 to the **canonical artifact `paper_latex/TMLR_2026_BeyondScale/main.pdf`** — the path the submission runbook (`experiments/09_tmlr_submission/tmlr_submission_cowork_prompt.md`) drives — after syncing its `99_appendix.tex` copy to the post-Future-Work-cut state; the duplicate shared-root port was removed. tmlr.sty auto-anonymizes (page 1: "Anonymous authors — Paper under double-blind review"); `\acks` is neutralized via `\newcommand{\acks}[1]{}` for the blind build. **Drift caveat:** the TMLR dir holds *copies* of the section files — any future edit to `DMLR_2026_BeyondScale/0*.tex` or `99_appendix.tex` must be re-synced (diff the two dirs) before rebuilding `main.pdf`; the runbook's Step 1 rebuild does not do this by itself.
 
 ## D2 — Accuracy null: keep, appendix, current framing (no "obvious null" language)
 
@@ -44,5 +44,5 @@ History (receipts in `experiments/01_addressing_openreviews/deep_research.md:603
 | Abstract SYNC to TMLR root | this session | **done** — abstract text unchanged by the count fix (footnote lives in the intro), mirrored copy verified identical |
 | Continuous-null regime explanation in appendix | Other CC session | **done** (`af579a0`) |
 | Final Mega QA on the TMLR build | this session | done — see QA report in session |
-| OpenReview TMLR submission (create submission, upload `00_tmlr_beyond_scale.pdf`, dual-submission attestations) | **Brando** (human click), driven by the cowork prompt the parallel session is writing to `experiments/09_tmlr_submission/` | open — the only remaining step |
+| OpenReview TMLR submission (create submission, upload `paper_latex/TMLR_2026_BeyondScale/main.pdf`, dual-submission attestations) | **Brando** (human click), driven by the cowork prompt the parallel session is writing to `experiments/09_tmlr_submission/` | open — the only remaining step |
 | Camera-ready only: `[accepted]` option, re-enable acknowledgments, month/year/openreview fields, n=27 re-eval under pinned harness | post-acceptance | deferred |
