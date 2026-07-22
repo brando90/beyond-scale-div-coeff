@@ -1,11 +1,12 @@
 # Beyond Scale: the Diversity Coefficient as a Data Quality Metric for Natural Language Datasets
 
-> **This is the master repo.** `brando90/beyond-scale-div-coeff` is the standalone (non-fork), actively maintained home of the diversity-coefficient code — it carries the full commit history plus the most recent experiment results. Related repos: [`alycialee/beyond-scale-language-data-diversity`](https://github.com/alycialee/beyond-scale-language-data-diversity) is the original root repo, and [`brando90/beyond-scale-language-data-diversity`](https://github.com/brando90/beyond-scale-language-data-diversity) is a fork of it (kept mainly for the DMLR 2026 paper LaTeX build files). New development happens here.
+> **This is the master repo.** `brando90/beyond-scale-div-coeff` is the standalone (non-fork), actively maintained home of the diversity-coefficient code — it carries the full commit history plus the most recent experiment results. All other related repos are outdated: [`alycialee/beyond-scale-language-data-diversity`](https://github.com/alycialee/beyond-scale-language-data-diversity) is the original root repo, [`brando90/beyond-scale-language-data-diversity`](https://github.com/brando90/beyond-scale-language-data-diversity) is a fork of it (kept mainly for the DMLR 2026 paper LaTeX build files), and [`SudharsanSundar/beyond-scale-SS-fork`](https://github.com/SudharsanSundar/beyond-scale-SS-fork) is a collaborator fork. New development happens here only.
 
 This repository provides the official implementation of the Task2Vec Diversity Coefficient for computing natural language data diversity from the following paper:
 
-**Beyond Scale: the Diversity Coefficient as a Data Quality Metric Demonstrates LLMs are Pre-trained on Formally Diverse Data**.
-Alycia Lee, Brando Miranda, Sanmi Koyejo.
+**Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data**.
+Brando Miranda, Alycia Lee, Sudharsan Sundar, Allison Casasola, Rylan Schaeffer, Elyas Obbad, Sanmi Koyejo.
+Published as a workshop paper in the Data-centric Machine Learning Research (DMLR) Workshop, ICLR 2024.
 Paper: https://arxiv.org/abs/2306.13840
 
 This repository also contains code for generating GINC datasets and computing the Diversity Coefficient of those datasets (see `ginc/`).
@@ -65,10 +66,14 @@ We thank [Rylan Schaeffer](http://rylanschaeffer.github.io/) for his contributio
 
 If you found this repo useful, please cite
 ```
-@article{lee2023scale,
-      author={Alycia Lee and Brando Miranda and Sanmi Koyejo},
-      journal={arXiv preprint arXiv:2306.13840},
-      title={Beyond Scale: the Diversity Coefficient as a Data Quality Metric Demonstrates LLMs are Pre-trained on Formally Diverse Data}, 
-      year={2023},
+@misc{miranda2025scalediversitycoefficientdata,
+      title={Beyond Scale: The Diversity Coefficient as a Data Quality Metric for Variability in Natural Language Data}, 
+      author={Brando Miranda and Alycia Lee and Sudharsan Sundar and Allison Casasola and Rylan Schaeffer and Elyas Obbad and Sanmi Koyejo},
+      year={2025},
+      eprint={2306.13840},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2306.13840},
+      note={Published as a workshop paper in the Data-centric Machine Learning Research (DMLR) Workshop, ICLR 2024},
 }
 ```
