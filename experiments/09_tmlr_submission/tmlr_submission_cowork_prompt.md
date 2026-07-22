@@ -4,7 +4,7 @@
 
 ---
 
-You are submitting a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview on my behalf. The paper is already written, updated, mega-QA'd, and formatted for TMLR. Per agents-config Trigger Rule 34 ("Cowork/browser-driving: go all the way to the end — Brando clicks only Submit"), **you drive the whole flow yourself**: navigation, filling every field, dropdowns, and the PDF upload (drive the file picker or set the file input directly — do NOT hand me a "click Choose File" step). You are driving my own browser, which is normally already signed into OpenReview, so expect to go straight through to the end. The single thing reserved for me is **the final "Submit" click**. (Only if the browser happens to be signed out will you need me to sign in first — don't assume it; just proceed, and pause for sign-in only if OpenReview actually shows a login wall.) Batch any genuine open questions into ONE checkpoint right before that final click. If a specific step truly cannot be driven (e.g., an undriveable native OS dialog), say so explicitly as a blocker — never silently delegate a step you could do.
+You are submitting a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview on my behalf. The paper is already written, updated, mega-QA'd, and formatted for TMLR. Per agents-config Trigger Rule 34 ("Cowork/browser-driving: go all the way to the end — Brando clicks only Submit"), **you drive the whole flow yourself**: navigation, filling every field, dropdowns, and the PDF upload (drive the file picker or set the file input directly — do NOT hand me a "click Choose File" step). You are driving my own browser, which is already signed into OpenReview — **check login state silently from the page itself and, when signed in (the normal case), proceed without mentioning it; a preemptive "are you logged in?" checkpoint is a for-no-reason stall.** Pause for me ONLY if an actual login wall or 2FA prompt is rendered on-screen (Trigger Rule 34). The single thing reserved for me is **the final "Submit" click** — I review the filled confirmation screen myself there, so optimize for speed to that point, not for intermediate reassurance. Batch any genuine open questions into ONE checkpoint right before that final click. If a specific step truly cannot be driven (e.g., an undriveable native OS dialog), say so explicitly as a blocker — never silently delegate a step you could do.
 
 Your job: (1) re-verify the built artifact is submission-ready, (2) fill the OpenReview submission form end-to-end, (3) stop at the final Submit for me.
 
@@ -12,9 +12,17 @@ Your job: (1) re-verify the built artifact is submission-ready, (2) fill the Ope
 **Submission artifact:** `paper_latex/TMLR_2026_BeyondScale/main.pdf` (source: `paper_latex/TMLR_2026_BeyondScale/main.tex` + shared `0*.tex`/`99_appendix.tex`).
 **Context docs (read these first):** `experiments/09_tmlr_submission/decision.md` (venue + scientific decisions) and `experiments/DATA_INTEGRITY_2026-07-22_corrupt_mix_evals.md`.
 
-## Step 1 — Rebuild and verify the artifact (do this, report results)
+## Step 1 — Sync, rebuild and verify the artifact (do this, report results)
+
+The TMLR dir holds **copies** of the shared section files; sync them from the canonical DMLR dir first so the PDF you upload includes the latest edits (stale-artifact guard, Trigger Rule 34):
 
 ```bash
+cd ~/beyond-scale-div-coeff && git pull
+for f in 01_introduction 02_method 03_experiments 04_related_work 05_discussion 98_acknowledgments 99_appendix; do
+  cp paper_latex/DMLR_2026_BeyondScale/$f.tex paper_latex/TMLR_2026_BeyondScale/$f.tex
+done
+cp paper_latex/DMLR_2026_BeyondScale/dmlr_bib_refs.bib paper_latex/TMLR_2026_BeyondScale/dmlr_bib_refs.bib
+git diff --stat -- paper_latex/TMLR_2026_BeyondScale/   # report what the sync changed (empty = already current)
 cd ~/beyond-scale-div-coeff/paper_latex/TMLR_2026_BeyondScale
 latexmk -C main.tex >/dev/null 2>&1
 pdflatex -interaction=nonstopmode main.tex >/dev/null 2>&1

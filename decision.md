@@ -1,6 +1,6 @@
 # decision.md — Beyond Scale (div coeff) submission decisions, 2026-07-23
 
-**TLDR:** Submit to **TMLR** (anonymized build `00_tmlr_beyond_scale.pdf` is ready, 35 pp, clean compile); keep the accuracy null in the appendix with its current floor-effect framing; keep the logP/margin nulls with the existing positive-control framing and add nothing (the "we expected this" and "inconclusive" wordings are both weaker and less accurate); ckpt-7 label conflict is resolved (PubMed 0.168 — checkpoint name was the misnomer). Only the model-count sentence (44/33/25, owned by the other CC session) and the OpenReview submit click remain.
+**TLDR:** Submit to **TMLR** — canonical anonymized build `paper_latex/TMLR_2026_BeyondScale/main.pdf` (35 pp, clean compile, verified 2026-07-23); keep the accuracy null in the appendix with its current floor-effect framing; keep the logP/margin nulls with the positive-control + regime framing; ckpt-7 resolved (PubMed 0.168 — checkpoint name was the misnomer); counts reconciled (44/27/25 census footnote); title keeps "variability" (D5). Remaining: run `experiments/09_tmlr_submission/tmlr_submission_cowork_prompt.md` and Brando's final OpenReview submit click.
 
 ## D1 — Venue: TMLR (final; do not reopen)
 
