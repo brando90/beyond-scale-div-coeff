@@ -236,8 +236,9 @@ To understand the upper bound, consider the other extreme: a dataset constructed
 Therefore, we measure a conceptual lower bound on a dataset with a vocabulary size of $2$: \texttt{<eos>} token and a randomly selected non-special token from the GPT-2 tokenizer vocabulary. 
 The \texttt{<eos>} token was assigned a probability weight of $1/\{\text{GPT-2 vocab size}\}$. 
 The non-special token was assigned the remaining weight.
-Similarly, a high or maximum diversity dataset would consist of random sequences of all possible tokens, with no underlying order to semantics, formatting, etc. 
+Similarly, a high or maximum diversity dataset would consist of random sequences of all possible tokens, with no underlying order to semantics, formatting, etc.
 The upper bound of the diversity coefficient was therefore measured on a synthetic dataset with an equal probability of occurrence assigned to all tokens in the GPT-2 tokenizer vocabulary.
+This maximum-entropy dataset is a degenerate reference point rather than an ideal: it is maximally random but contains no linguistic structure to learn, which is also why Shannon token entropy itself is unsuitable as a training-data diversity metric (Appendix~\ref{appendix:entropy_not_diversity}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

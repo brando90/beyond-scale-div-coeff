@@ -4,8 +4,8 @@
 Existing diversity metrics have concentrated on data produced by Generative Adversarial Networks (GANs) and involve variations of a precision- and recall-based framework originally proposed in \citep{sajjadi2018assessing} to measure quality and diversity, respectively \citep{kynkaanniemi2019improved, simon2019revisiting, naeem2020}.
 Similar to our metric, these methods use embedding functions, and argue data quality is not synonymous with data diversity in the context of GANs \citep{fowl2020random}.
 The Vendi Score \citep{friedman2022vendi} is a recently proposed metric defined as the exponential of the Shannon entropy of the eigenvalues of a similarity kernel.
-While elegant, it requires $O(N^2)$ kernel computation and eigendecomposition, which limits scalability to web-scale corpora; we provide a detailed comparison in Appendix~\ref{related_work_cont}.
-Simpler baselines such as N-gram diversity (distinct-to-total N-gram ratio) and mean embedding cosine distance are computationally cheap but do not capture structural task-level diversity; we compare against these baselines empirically in Section~\ref{sec:experiments}.
+While elegant, it requires materializing an $N\times N$ kernel and eigendecomposing it, which limits scalability to web-scale corpora; we provide a detailed comparison in Appendix~\ref{related_work_cont}.
+Simpler baselines such as N-gram diversity (distinct-to-total N-gram ratio)~\citep{li2016diversity} and mean embedding cosine distance are computationally cheap but do not capture structural task-level diversity; we compare against these baselines empirically in Appendix~\ref{appendix:baseline_metrics}.
 
 \paragraph{Data curation and selection for LLMs.}
 A growing body of work demonstrates the critical role of data quality and diversity in LLM pre-training.
@@ -13,6 +13,7 @@ Deduplication has been shown to improve training efficiency: SemDeDup \citep{abb
 Data selection methods such as DoReMi \citep{xie2023doremi} and LESS \citep{xia2024less} optimize domain mixture weights, while LIMA \citep{zhou2023lima} demonstrates that a small amount of carefully curated data can produce strong instruction-following models.
 On the data construction side, large curated corpora including FineWeb \citep{penedo2024fineweb}, RefinedWeb \citep{penedo2023refinedweb}, Dolma \citep{soldaini2024dolma}, and DCLM \citep{li2024datacomp} have advanced the state of the art by improving data quality at scale.
 DataComp-LM \citep{li2024datacomp} provides a benchmark for data-centric approaches to language model development.
+Subsequent work shows that the measured diversity of synthetic pre-training data predicts downstream LLM performance~\citep{chen2024diversity}, corroborating diversity as a key axis of data quality.
 Our work complements these efforts by providing a quantitative metric to \textit{measure} diversity rather than to \textit{select} or \textit{filter} data.
 
 \paragraph{Diversity and in-context learning.}

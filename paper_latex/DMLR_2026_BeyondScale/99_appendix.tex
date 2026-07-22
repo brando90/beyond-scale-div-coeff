@@ -24,7 +24,7 @@ In contrast to the Vendi Score, our approach learns effective embeddings of data
 Since many datasets are publicly available (e.g. Common Crawl, Wikipedia), data used to train new models may be curated from such datasets, necessitating a metric that captures overall data diversity.
 These scenarios are thus in favor of using the Task2Vec diversity coefficient. 
 Therefore, our method is likely more general and scalable than the Vendi Score. 
-We leave a detailed comparison with the Vendi Score as future work.
+We provide an empirical comparison with the Vendi Score in Appendix~\ref{appendix:baseline_metrics}, where the tested GPT-2-kernel configuration produces dataset rankings that contradict both intuition and the diversity coefficient.
 
 Returning to the utility of a practical diversity metric, there is strong empirical support from efforts at increasing multi-modal image and text data quality that using \textit{semantically} deduplicated data (as opposed to simply exact \textit{match} deduplication) for training can yield impressive training efficiency gains and even improve out of domain generalization \citep{abbas2023semdedup, abbas2024effective}. Though motivated by the same underlying hypothesis about the importance of diversity in data quality, our work on the diversity coefficient focuses on text-only data, the standard for training LLMs, and yields a more interpretable metric that allows practitioners to rigorously \textit{understand} the quality of datasets, enabling the informed \textit{choice} of baseline higher quality datasets rather than only being able to \textit{improve} a \textit{chosen} dataset. Furthermore, the generality of the diversity coefficient allows it to assess and inform the results of traditional data \textit{pruning}, which has been shown to be a promising method for increasing data quality \citep{sorscher2023neural}, while also lending itself naturally as a useful metric for guiding diverse data corpora \textit{construction}, which has also been seen to be a fruitful endeavor with the release large, diverse, open source corpora \citep{thepile}.
 
@@ -95,6 +95,7 @@ Therefore, one would expect consistently high distances between activation-based
 \end{figure*}
 
 \subsection{Token Based Definitions of Diversity are Brittle to Paraphrasings}
+\label{appendix:token_brittleness}
 One can also consider formalizations of diversity based on token distributions in a batch (or data set). 
 We did not use this because previous work has already demonstrated its limitation as data representations for train-test data contamination detection \citep{contamination}. 
 This is highly related to our work because contamination detection requires good data representations for detecting differences in text. 
@@ -127,7 +128,34 @@ However, explicit relationships quantifying how distances based on Fisher inform
 \textbf{Remarks on approximations to Kolmogorov: }
 The central way we control for our results to be model agnostic in practice is by fixing the model. 
 This means that the data is the only thing being varied, and the features being used for any diversity of computations are consistent. 
-Since, Kolmogorov Complexity in uncomputable we conjecture this is approximately optimal---given that it's essential in practice to have a way to represent the data. 
+Since, Kolmogorov Complexity in uncomputable we conjecture this is approximately optimal---given that it's essential in practice to have a way to represent the data.
+
+\subsection{Why Shannon Token Entropy is Unsuitable as a Measure of Training-Data Diversity}
+\label{appendix:entropy_not_diversity}
+A natural question is whether the Shannon entropy $H(p) = -\sum_{x \in V} p(x) \log p(x)$ of a dataset's token (or $n$-gram) distribution suffices as a diversity metric, since it is model-free and cheap to compute.
+We argue it does not, for three reasons.
+
+\textbf{Uniform i.i.d.\ noise maximizes token entropy.}
+Over a fixed vocabulary $V$, $H$ is uniquely maximized by a uniform marginal token distribution.
+Sampling tokens i.i.d.\ uniformly at random produces this marginal and is precisely the synthetic dataset we use as the \emph{conceptual upper bound} in Section~\ref{method_ub_lb}.
+It contains no syntax, semantics, or latent concepts, so a language model can learn only the uniform token distribution.
+A diversity metric intended to inform data \emph{quality} judgments must therefore not assign its maximal value to data that is worthless for pre-training.
+Entropy conflates diversity with randomness; the useful notion for data curation is variety of \emph{learnable structure}.
+The diversity coefficient makes this distinction operational: the maximum-entropy dataset serves only as a reference bound (approximately 0.4), and all real, structured corpora we measure fall strictly below it while still ordering sensibly among themselves (Table~\ref{tab:div}).
+
+\textbf{Token entropy is blind to sequence structure.}
+Token-level $H$ is a functional of the marginal unigram frequency histogram alone, and is therefore invariant to arbitrary permutations of tokens within and across sequences.
+Randomly shuffling every token of C4 destroys its sequence-level syntax and semantics yet leaves its token entropy exactly unchanged.
+Extending to $n$-gram entropies only moves this limitation to length-$n$ contexts, whose possible outcomes grow as $|V|^n$, and remains brittle to paraphrasing for the reasons given in Section~\ref{appendix:token_brittleness}.
+
+\textbf{Practical entropy-rate estimation still requires a sequence model.}
+The relevant sequence-level quantity is the entropy rate of the text distribution.
+For long-range-dependent natural language, practical estimates impose a predictive model or compressor; language-model cross-entropy is one such model-dependent upper bound.
+This reintroduces the model dependence that motivates model-free proposals while providing none of the task-structure sensitivity of Fisher Information based embeddings.
+Token entropy is additionally tokenizer-dependent, so its absolute values are not comparable across vocabularies.
+
+One alternative applies entropy in embedding space rather than token space: the Vendi Score \citep{friedman2022vendi} is the exponential of the Shannon entropy of the eigenvalues of a similarity kernel.
+In Appendix~\ref{appendix:baseline_metrics}, our tested Vendi configuration fails an intuitive dataset-ranking check that the diversity coefficient passes.
 
 % TODO: https://alexachi.github.io/files/achilleMS18dynamics.pdf
 % We bring to bear tools from diverse fields, from Kolmogorov Complexity
@@ -237,6 +265,59 @@ As shown in \citep{diversity}, when the ground truth diversity is available for 
 % \end{figure}
 
 Figure~\ref{fig:div_pipeline} shows our pipeline for computing the diversity coefficient of large scale, natural language datasets. See Section~\ref{body:div_coeff_natural_lang} for more details on our method.
+
+\section{Empirical Comparison with Simpler Diversity Baselines}
+\label{appendix:baseline_metrics}
+A reasonable question is whether simpler, cheaper metrics---$n$-gram diversity, embedding distances, or the Vendi Score---already capture what the diversity coefficient measures.
+We compare all three families of baselines against the diversity coefficient on six of the pre-training datasets from Table~\ref{tab:div}.
+
+\textbf{Experiments:}
+For each of C4, WikiText-103, The Pile, PubMed Abstracts, USPTO, and OpenWebText, we sample 100 batches of 512 sequences using the GPT-2 tokenizer and compute:
+(1) \emph{$n$-gram diversity}, the distinct-to-total $n$-gram ratio within batches for $n \in \{1,2,3,4\}$~\citep{li2016diversity};
+(2) \emph{mean GPT-2 embedding cosine distance}, the mean pairwise cosine distance between batch vectors, where each batch vector averages L2-normalized final-token embeddings from pretrained GPT-2 \citep{gpt2}; and
+(3) the \emph{Vendi Score} \citep{friedman2022vendi}, the exponential of the Shannon entropy of the eigenvalues of the cosine-similarity kernel over the same GPT-2 sequence embeddings, using a fixed random subsample of 500 sequences.
+Sentence encoders such as SBERT \citep{reimers2019sentence} provide another possible embedding backbone, but the reported experiment used GPT-2.
+Diversity coefficient values are taken from Table~\ref{tab:div} (computed with 200 batches of size 512); because the baseline run used 100 batches, we compare dataset \emph{rankings} rather than absolute magnitudes.
+
+\begin{table}[h!]
+\centering
+\caption{\textbf{The tested simpler diversity baselines disagree with each other and fail intuitive dataset-ranking checks that the diversity coefficient passes.}
+Vendi Score (GPT-2 kernel) ranks the narrow-domain patent corpus USPTO \emph{above} web-scale C4, and mean GPT-2 embedding cosine distance ranks C4 \emph{lowest} of all six datasets---both contradicting the expectation (and the diversity coefficient's finding) that large web-crawl corpora are among the most diverse.
+$n$-gram diversity agrees with the diversity coefficient on the extremes but only measures surface lexical variety.
+Embedding cosine values are $\times 10^{-4}$.}
+\vskip 0.1in
+\begin{small}
+\begin{tabular}{lccccc}
+\toprule
+Dataset & Div. Coeff. & 1-gram & 2-gram & GPT-2 cos. ($\times 10^{-4}$) & Vendi \\
+\midrule
+USPTO & 0.158 & 0.116 & 0.525 & 1.28 & 1.490 \\
+PubMed Abstracts & 0.168 & 0.146 & 0.620 & 1.72 & 1.429 \\
+WikiText-103 & 0.214 & 0.215 & 0.689 & 2.17 & 1.443 \\
+OpenWebText & 0.222 & 0.191 & 0.688 & 1.44 & 1.440 \\
+C4 & 0.237 & 0.200 & 0.713 & 1.02 & 1.366 \\
+The Pile & 0.246 & 0.191 & 0.664 & 2.48 & 1.603 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:baseline_metrics}
+\end{table}
+
+\textbf{Results:}
+Table~\ref{tab:baseline_metrics} reports all metrics; our key observations are:
+\begin{itemize}
+    \item \textbf{$n$-gram diversity broadly agrees with the diversity coefficient} (Spearman $\rho = 0.60$ over the six datasets for both 1-gram and 2-gram): both rank the narrow-domain corpora USPTO and PubMed lowest.
+    However, $n$-gram diversity only measures surface lexical variety and is brittle to paraphrasing (Section~\ref{appendix:token_brittleness}).
+    \item \textbf{The tested Vendi configuration fails an intuitive dataset-ranking check}: it ranks USPTO (patent applications with highly regular format and topic) \emph{above} the web-scale corpora C4, OpenWebText, and WikiText-103.
+    Its rank correlation with the diversity coefficient is near zero ($\rho = 0.03$).
+    \item \textbf{Mean GPT-2 embedding cosine distance ranks C4 lowest of all six datasets}, despite C4 being an internet-scale web-crawl corpus that both the diversity coefficient and human intuition place among the most diverse.
+    Its rank correlation with the diversity coefficient is weak ($\rho = 0.26$).
+    \item \textbf{The simpler baselines also disagree with each other}: 2-gram diversity and the Vendi Score are negatively rank-correlated ($\rho = -0.49$) on these datasets, so they do not induce a common ranking.
+\end{itemize}
+With only six datasets, these rank correlations are descriptive rather than definitive.
+In contrast to the baselines, the diversity coefficient passes the battery of validation checks presented in this paper: it increases under dataset concatenation (Section~\ref{sec:experiments}), correlates with ground-truth diversity on synthetic benchmarks with known diversity (Appendix~\ref{appendix:ground_truth_div} and Section~\ref{body:ginc}), and agrees with GPT-4 diversity judgments at an 82.8\% rate (Section~\ref{sec:gpt4_validation}).
+These six-dataset results do not establish universal superiority, but they show that the baseline rankings depend strongly on the representation.
+They also suggest that $n$-gram diversity can serve as a cheap lexical proxy, whereas the Task2Vec diversity coefficient has support from the additional validation checks above.
 
 \section{Higher Formal Diversity of the Training Data Set Causes Higher Test Performance}
 Table~\ref{tab:div_vs_ppl} demonstrates the causal relationship between pre-training data diversity and downstream evaluation performance on a diverse target domain. 
@@ -503,6 +584,46 @@ GPT2-204M & 1.31B (1024 L) & USPTO  & 6.16 (473.4) & 5.40 (221.4) \\
 % \end{tabular}
 % }
 % \end{table}
+
+\subsection{Downstream Benchmark Evaluations Beyond Cross-Entropy}
+\label{appendix:downstream_benchmarks}
+To complement the cross-entropy evaluations in Figure~\ref{fig:div_vs_val_ce} and the MMLU results in Section~\ref{sec:confounding}, we evaluate all available checkpoints on four additional standard benchmarks.
+
+\textbf{Experiments:}
+We evaluate 27 models (GPT-2 families from 51M to 1.5B parameters and LLaMA-2 7B checkpoints, each pre-trained from scratch on USPTO, PubMed Abstracts, or USPTO+PubMed with diversity coefficients 0.158, 0.168, and 0.195 respectively) on ARC-Easy, HellaSwag, WinoGrande, and LAMBADA using the EleutherAI lm-evaluation-harness.
+The reported metric is \emph{accuracy}: length-normalized accuracy (\texttt{acc\_norm}) for ARC-Easy and HellaSwag, and standard accuracy (\texttt{acc}) for WinoGrande and LAMBADA.
+
+\begin{table}[h!]
+\centering
+\caption{\textbf{Accuracy remains low on four downstream benchmarks, and none shows a significant diversity correlation.}
+Mean accuracy is computed over all 27 models; no benchmark shows a statistically significant Spearman correlation between the training-data diversity coefficient and accuracy.}
+\vskip 0.1in
+\begin{small}
+\begin{tabular}{lcccc}
+\toprule
+Benchmark & Reference floor & Mean acc.\ (min--max) & Spearman $\rho$ & $p$-value \\
+\midrule
+ARC-Easy & 0.25 & 0.320 (0.255--0.366) & $-0.16$ & 0.41 \\
+HellaSwag & 0.25 & 0.272 (0.262--0.286) & $-0.14$ & 0.49 \\
+WinoGrande & 0.50 & 0.504 (0.484--0.522) & $0.10$ & 0.62 \\
+LAMBADA & $\approx 0$ & 0.043 (0.000--0.095) & $-0.08$ & 0.68 \\
+\bottomrule
+\end{tabular}
+\end{small}
+\label{tab:downstream_benchmarks}
+\end{table}
+
+\textbf{Results:}
+Table~\ref{tab:downstream_benchmarks} shows low absolute accuracy: ARC-Easy averages 0.320 against a 0.25 reference floor, HellaSwag 0.272 against 0.25, WinoGrande 0.504 against 0.50, and LAMBADA 0.043 near its open-vocabulary floor.
+No benchmark shows a significant correlation with the diversity coefficient ($p > 0.4$ for all), so these accuracy results do not support a diversity--performance association in this setting.
+The low scores and narrow diversity range are consistent with a floor effect, but these data cannot distinguish a floor effect from the absence of a relationship at this scale.
+A complementary methodological explanation is that accuracy \emph{discretizes} the model's continuous per-choice log-likelihoods through an argmax, and this discretization is known to destroy the smooth capability signal that log-likelihood-based metrics retain at small scale \citep{schaeffer2024elusive}; our cross-entropy evaluation is precisely such a continuous metric.
+% TODO(internal-review): EXPERIMENT_STATE.md §6 flags one duplicated eval-results row in mmlu_results.csv (gpt2-810M-2.2B-USPTOAndPubMedAbs identical to gpt2-117M-2.2B-USPTO, likely a results-dir casing collision). Sensitivity check 2026-07-21: dropping the suspect rows leaves both correlations null (log_p_correct rho in [-0.22,-0.17], p>=0.27; margin |rho|<=0.05, p>=0.83 across n=27/25/23 variants), so the claim below is robust — but fix the CSV before camera-ready and update the two rho/p values if they shift.
+Discretization is not the whole story, however: on MMLU we computed continuous per-choice metrics directly across the same 27 models---mean $\log P(\mathrm{correct\ choice})$ and the margin $\log P(\mathrm{correct}) - \overline{\log P}(\mathrm{incorrect})$---and find no significant Spearman correlation with the diversity coefficient for either metric (mean $\log P$: $\rho=-0.17$, $p=0.39$; margin: $\rho=0.04$, $p=0.83$).
+At these model scales and token budgets, the benefit of pre-training data diversity is therefore detectable in corpus-level cross-entropy but not in question-level benchmark metrics, discrete or continuous; extending the per-choice log-likelihood analysis to the four benchmarks above remains future work.
+FineWeb \citep{penedo2024fineweb} and DataComp-LM \citep{li2024datacomp} likewise select benchmark subsets designed to provide reliable signal in small-scale data-ablation experiments.
+Our main diversity$\to$performance evidence therefore rests on the cross-entropy results in Figure~\ref{fig:div_vs_val_ce}; the four accuracy benchmarks reported here provide no supporting evidence.
+Testing whether larger training budgets or early-signal benchmark subsets reveal an accuracy relationship remains future work.
 
 \section{Using the Diversity Coefficient in Practice: Setting Batch Size and Network Parameters}
 \label{body:div_parameters}
@@ -853,8 +974,8 @@ We hope our contributions inspire more effective data collection and curation in
     i.e., high distances in activation space might be artificially high.
     We observed this but plan to give more detailed study in the future. 
     \item The choice of an expectation as the aggregation function could be seen as arbitrary. 
-    Alternatives such as the Vendi score are promising, but still under-explored and computationally demanding compared to expectations/sums. 
-    Future work could focus on the comparative analysis of the total distance sum and the Vendi score. 
+    Alternatives such as the Vendi score are promising as aggregation functions over Task2Vec distances, but still under-explored and computationally demanding compared to expectations/sums.
+    Future work could focus on the comparative analysis of the total distance sum and the Vendi score as aggregators over Task2Vec distances (Appendix~\ref{appendix:baseline_metrics} already compares the Vendi Score computed over raw GPT-2 embeddings as a standalone baseline metric).
     We hypothesize, in line with the Central Limit Theorem (CLT), that the results might not differ significantly e.g., CLT still converges to (unit) Normal given the proper normalization procedure. 
     \item We reject the notion that the use of models is a limitation. 
     As discussed earlier, models can provide superior data embeddings, and all forms of data representations are always required.
@@ -894,7 +1015,6 @@ This assessment will enable us to curate the training data by selectively removi
 % \section{Impact Statement}
 % % DEFAULT: This paper presents work whose goal is to advance the field of Machine Learning. There are many potential societal consequences of our work, none which we feel must be specifically highlighted here.
 % This paper presents work whose goal is to advance the field of machine learning, and, in particular, presents tools for better understanding and training large language models (LLMs) via a rigorous approach to data quality. One important societal consequence of this is the fact that a better understanding of data quality would allow researchers and practitioners to make more informed decisions on dataset selection and more efficiently train LLMs. Thus, by reducing the need for the scaling of data quantity, this would likely lead to lower model development and inference costs, thereby making the development and use of LLMs more affordable and widely accessible to researchers and practitioners. Furthermore, more efficient training would lead to lower energy expenditure during model development, partially ameliorating any environmental degradation resulting from energy production and use. Finally, a rigorous understanding of data quality yields greater transparency about the value of data corpora, thereby allowing for fairer and better-grounded trade and arbitration with regard to the buying and selling of corpora. Aside from these factors, there are surely many other potential societal and ethical consequences of our work, but there are no others which we feel must be specifically highlighted here.
-
 
 
 
