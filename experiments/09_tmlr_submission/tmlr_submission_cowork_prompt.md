@@ -1,10 +1,10 @@
 # TMLR Submission Cowork Prompt — Beyond Scale (Diversity Coefficient)
 
-**TLDR:** Copy the block below the line into a fresh Claude Code / Cowork session (browser-driving enabled) run from the `beyond-scale-div-coeff` repo. It has the agent re-verify the built TMLR PDF, then **drive the entire OpenReview submission itself** — navigation, every form field, the PDF upload — stopping only for the single final "Submit" click (per agents-config Trigger Rule 34); it drives your own already-signed-in browser, so there's normally no login step.
+**TLDR:** Copy the block below the line into a fresh Claude Code / Cowork session (browser-driving enabled) run from the `beyond-scale-div-coeff` repo. It has the agent re-verify the built TMLR PDF, then **drive the entire OpenReview submission itself** — navigation, every form field, the PDF upload — stopping only for the single final "Submit" click; it drives your own already-signed-in browser, so there's normally no login step.
 
 ---
 
-You are submitting a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview on my behalf. The paper is already written, updated, mega-QA'd, and formatted for TMLR. Per agents-config Trigger Rule 34 ("Cowork/browser-driving: go all the way to the end — Brando clicks only Submit"), **you drive the whole flow yourself**: navigation, filling every field, dropdowns, and the PDF upload (drive the file picker or set the file input directly — do NOT hand me a "click Choose File" step). You are driving my own browser, which is already signed into OpenReview — **check login state silently from the page itself and, when signed in (the normal case), proceed without mentioning it; a preemptive "are you logged in?" checkpoint is a for-no-reason stall.** Pause for me ONLY if an actual login wall or 2FA prompt is rendered on-screen (Trigger Rule 34). The single thing reserved for me is **the final "Submit" click** — I review the filled confirmation screen myself there, so optimize for speed to that point, not for intermediate reassurance. Batch any genuine open questions into ONE checkpoint right before that final click. If a specific step truly cannot be driven (e.g., an undriveable native OS dialog), say so explicitly as a blocker — never silently delegate a step you could do.
+You are submitting a paper to **TMLR (Transactions on Machine Learning Research)** via OpenReview on my behalf. The paper is already written, updated, mega-QA'd, and formatted for TMLR. House rule, stated fully here (do not look for any external rules file — you do not have access to one): **go all the way to the end; Brando clicks only Submit. You drive the whole flow yourself**: navigation, filling every field, dropdowns, and the PDF upload (drive the file picker or set the file input directly — do NOT hand me a "click Choose File" step). You are driving my own browser, which is already signed into OpenReview — **check login state silently from the page itself and, when signed in (the normal case), proceed without mentioning it; a preemptive "are you logged in?" checkpoint is a for-no-reason stall.** Pause for me ONLY if an actual login wall or 2FA prompt is rendered on-screen. The single thing reserved for me is **the final "Submit" click** — I review the filled confirmation screen myself there, so optimize for speed to that point, not for intermediate reassurance. Batch any genuine open questions into ONE checkpoint right before that final click. If a specific step truly cannot be driven (e.g., an undriveable native OS dialog), say so explicitly as a blocker — never silently delegate a step you could do.
 
 Your job: (1) re-verify the built artifact is submission-ready, (2) fill the OpenReview submission form end-to-end, (3) stop at the final Submit for me.
 
@@ -14,7 +14,7 @@ Your job: (1) re-verify the built artifact is submission-ready, (2) fill the Ope
 
 ## Step 1 — Sync, rebuild and verify the artifact (do this, report results)
 
-The TMLR dir holds **copies** of the shared section files; sync them from the canonical DMLR dir first so the PDF you upload includes the latest edits (stale-artifact guard, Trigger Rule 34):
+The TMLR dir holds **copies** of the shared section files; sync them from the canonical DMLR dir first so the PDF you upload includes the latest edits (stale-artifact guard — a previously built PDF may predate recent edits):
 
 ```bash
 cd ~/beyond-scale-div-coeff && git pull
@@ -53,7 +53,7 @@ TMLR submission requires these fields entered in the OpenReview form (NOT in the
 - **Conflicts of interest / domains:** remind me to enter author email domains (stanford.edu) for conflict detection.
 - **Checklist items TMLR asks at submission:** anonymization confirmed; code/data availability (point to the public GitHub repo but note it must be anonymized for review — if the repo is de-anonymizing, recommend an anonymized mirror or omitting the link during review).
 
-## Step 3 — Drive the OpenReview submission (you fill everything; I provide login + final Submit)
+## Step 3 — Drive the OpenReview submission (you fill everything; I click only the final Submit)
 
 Open the browser and drive the flow yourself:
 1. Navigate to https://openreview.net and the TMLR venue's submission page. I'm normally already signed in, so go straight to the submission form. Only if OpenReview actually shows a login wall, pause and ask me to sign in, then continue.
@@ -64,7 +64,7 @@ Open the browser and drive the flow yourself:
 6. After I submit: read back the OpenReview forum ID, then (a) write it into the TMLR `\openreview` macro (`paper_latex/TMLR_2026_BeyondScale/main.tex`) and the DMLR root for camera-ready, and (b) update `experiments/09_tmlr_submission/decision.md` with the submission link + date, and commit both.
 
 ## Constraints
-- Drive the entire browser flow yourself (navigation, all fields, dropdowns, PDF upload, previews). The only thing reserved for me is the single final Submit click (plus signing in, but only in the unlikely case the browser is signed out). Never hand me a "click Choose File" or "type this into that box" step you could do yourself (agents-config Trigger Rule 34).
+- Drive the entire browser flow yourself (navigation, all fields, dropdowns, PDF upload, previews). The only thing reserved for me is the single final Submit click (plus signing in, but only in the unlikely case the browser is signed out). Never hand me a "click Choose File" or "type this into that box" step you could do yourself.
 - Do NOT edit any numbers, claims, or results in the paper. Build-only fixes are allowed if the compile breaks.
 - If the repo is public and de-anonymizing, WARN me before adding any repo link to the submission.
 - Go end-to-end without stopping to check in: run Steps 1→2→3 straight through, narrating what you're doing as you go (no "wait for my approval" pauses). The expected path has exactly ONE interruption: the single final Submit click, where you batch any genuine open questions into ONE checkpoint. (A sign-in pause is only needed in the rare case the browser is signed out.) Everything else — verifying the build, assembling metadata, filling every field, uploading the PDF — you just do.
